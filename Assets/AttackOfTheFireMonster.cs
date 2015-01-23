@@ -119,7 +119,7 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
             for (int attempt = 0; attempt < 4; ++attempt) {
                 var hosts = MasterServer.PollHostList();
                 if (hosts.Length > 0) {
-                    Debug.LogFormat("Connecting to {0} on {1}:{2}", hosts[0].gameName, string.Join(".", hosts[0].ip), hosts[0].port);
+                    //Debug.LogFormat("Connecting to {0} on {1}:{2}", hosts[0].gameName, string.Join(".", hosts[0].ip), hosts[0].port);
                     var error = Network.Connect(hosts[0]);
                     if (error != NetworkConnectionError.NoError) {
                         Debug.LogError("Failed to connect");
