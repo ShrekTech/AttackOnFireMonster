@@ -22,9 +22,11 @@ public class BattleStateHandler : MonoBehaviour {
     public int highestVotedAction;
 
     [RPC]
-    public void SetHighestVotedAction(int highestVotedAction)
+    public void FinaliseHighestVotedAction(int highestVotedAction)
     {
         this.highestVotedAction = highestVotedAction;
+
+        System.Array.Clear(Voting.ChosenOption, 0, Voting.ChosenOption.Length);
     }
 
     [RPC]
@@ -58,13 +60,13 @@ public class BattleStateHandler : MonoBehaviour {
 
 	void Awake () {
 		this.canvas = GetComponentInParent<Canvas> ();
-		this.currentBattleState = new CountdownState(this);
-
-        //timerDisplay.color = Color.clear;
+        this.currentBattleState = new CountdownState(this);
 	}
 
 	void Update () {
-        this.currentBattleState = this.currentBattleState.UpdateState(this);
-		this.currentBattleState.Update (this);
+        if (Network.isClient || Network.isServer) {
+            this.currentBattleState = this.currentBattleState.UpdateState(this);
+            this.currentBattleState.Update(this);
+        }
 	}
 }
