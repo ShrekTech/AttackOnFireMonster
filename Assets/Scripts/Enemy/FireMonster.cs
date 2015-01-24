@@ -6,9 +6,12 @@ public class FireMonster : Enemy, IBattleActionable {
 	public const string NAME = "Fire Monster";
 	public const int MAX_HITPOINTS = 100;
 
-	public FireMonster() : base(NAME, MAX_HITPOINTS, new List<BattleAction>()) {
-		// Add some battle actions
-	}
+    void Awake()
+    {
+        name = NAME;
+        maxHitPoints = MAX_HITPOINTS;
+        currentHitPoints = MAX_HITPOINTS;
+    }
 
 	#region IBattleActionable implementation
 

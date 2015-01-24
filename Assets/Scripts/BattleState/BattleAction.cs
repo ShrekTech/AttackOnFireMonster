@@ -1,10 +1,11 @@
+[System.Serializable]
 public class BattleAction {
 	public enum DamageType {RegularType, Fire, Cold};
 	public enum Target {Self, Enemy};
 
-	int damage;
-	DamageType type;
-	Target target;
+	public int damage;
+	public DamageType type;
+	public Target target;
 
 	public BattleAction(int damage) {
 		this.damage = damage;

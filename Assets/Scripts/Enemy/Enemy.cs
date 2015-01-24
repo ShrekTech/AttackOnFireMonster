@@ -4,18 +4,11 @@ using System.Collections.Generic;
 
 
 public abstract class Enemy : MonoBehaviour {
-	private int maxHitPoints;
-	private int currentHitPoints;
-	private List<BattleAction> actions;
+	public int maxHitPoints;
+    public int currentHitPoints;
+	public List<BattleAction> actions;
 
 	public Image enemyImage;
-	
-	public Enemy(string name, int maxHitPoints, List<BattleAction> actions) {
-		this.name = name;
-		this.maxHitPoints = maxHitPoints;
-		this.currentHitPoints = this.maxHitPoints;
-		this.actions = actions;
-	}
 	
 	public BattleAction SelectBattleAction() {
 		return actions[Random.Range(0, actions.Count)];
