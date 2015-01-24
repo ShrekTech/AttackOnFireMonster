@@ -7,6 +7,7 @@ public class ChoiceHighlighter : MonoBehaviour {
 	public List<Image> redPlayerIndicators;
 	public List<Image> bluePlayerIndicators;
 	public List<Image> whitePlayerIndicators;
+	public List<Image> greenPlayerIndicators;
 
 	// Update is called once per frame
 	void Update () {
@@ -28,9 +29,16 @@ public class ChoiceHighlighter : MonoBehaviour {
 				whiteImage.color.b, 0.0f);
 		}
 
+		foreach(Image greenImage in greenPlayerIndicators) {
+			greenImage.color = new Color(
+				greenImage.color.r, greenImage.color.g,
+				greenImage.color.b, 0.0f);
+		}
+
 		bool redVoteExists = battleStateHandler.playerVote.ContainsKey ("red");
 		bool blueVoteExists = battleStateHandler.playerVote.ContainsKey ("blue");
 		bool whiteVoteExists = battleStateHandler.playerVote.ContainsKey ("white");
+		bool greenVoteExists = battleStateHandler.playerVote.ContainsKey ("green");
 
 
 		if(redVoteExists) {
@@ -68,6 +76,18 @@ public class ChoiceHighlighter : MonoBehaviour {
 				whiteImage.color = new Color(
 					whiteImage.color.r, whiteImage.color.g,
 					whiteImage.color.b, 1.0f);
+			}
+		}
+
+		if(greenVoteExists) {
+			int greenVote = (int)battleStateHandler.playerVote ["green"];
+			if(greenVote > 0) {
+				//Green vote exists and is not default, so covert into index for indicator array
+				greenVote -= 1; 
+				Image greenImage = greenPlayerIndicators[greenVote];
+				greenImage.color = new Color(
+					greenImage.color.r, greenImage.color.g,
+					greenImage.color.b, 1.0f);
 			}
 		}
 	}

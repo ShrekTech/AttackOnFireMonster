@@ -36,5 +36,15 @@ public class PlayerActionVoteCounter : MonoBehaviour {
 		if(Input.GetKey(KeyCode.L)) {
 			battleStateHandler.playerVote["white"] = BattleStateHandler.PlayerAction.DEFEND;
 		}
+
+		if(Input.GetKey(KeyCode.Keypad4)) {
+			battleStateHandler.playerVote["green"] = BattleStateHandler.PlayerAction.FIREBALL;
+		}
+		if(Input.GetKey(KeyCode.Keypad5)) {
+			battleStateHandler.playerVote["green"] = BattleStateHandler.PlayerAction.COLDBALL;
+		}
+		if(Input.GetKey(KeyCode.Keypad6)) {
+			battleStateHandler.playerVote["green"] = BattleStateHandler.PlayerAction.DEFEND;
+		}
 	}
 }
