@@ -70,8 +70,8 @@ namespace BattleScenario {
 									playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
 									attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
 									attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+									break;
 							}
-							break;
 					case BattleStateHandler.PlayerAction.COLDBALL:
 							{
 									playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
