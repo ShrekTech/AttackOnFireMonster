@@ -7,10 +7,11 @@ namespace BattleScenario
 	{
 		private float actionTime = 2.0f;
 
-		public IBattleState UpdateState (BattleStateHandler battleStateHandler)
+        public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (actionTime <= 0) {
-				return new CountdownState();
+                Debug.Log("MonsterActionState done");
+				return new CountdownState(battleStateHandler);
 			}
 			return this;
 		}
@@ -18,7 +19,7 @@ namespace BattleScenario
 		public void Update (BattleStateHandler battleStateHandler)
 		{
 			actionTime -= Time.deltaTime;
-			Debug.Log ("MonsterActionState");
+			
 		}
 	}
 

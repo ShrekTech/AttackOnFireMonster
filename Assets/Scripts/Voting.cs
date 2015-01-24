@@ -3,13 +3,15 @@ using System.Collections;
 
 public class Voting : MonoBehaviour
 {
+    public const int RED = 0;
+    public const int BLUE = 1;
+    public const int WHITE = 2;
+    public const int GREEN = 3;
     public const int MaxPlayers = 4;
     [System.NonSerialized]
-    public int[] ChosenOption = new int[MaxPlayers];
+    public static int[] ChosenOption = new int[MaxPlayers];
 
     public int Progress;
-
-    public MonoBehaviour ActionHandler;
 
     void Update()
     {

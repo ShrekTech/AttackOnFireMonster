@@ -35,14 +35,14 @@ public class ChoiceHighlighter : MonoBehaviour {
 				greenImage.color.b, 0.0f);
 		}
 
-		bool redVoteExists = battleStateHandler.playerVote.ContainsKey ("red");
-		bool blueVoteExists = battleStateHandler.playerVote.ContainsKey ("blue");
-		bool whiteVoteExists = battleStateHandler.playerVote.ContainsKey ("white");
-		bool greenVoteExists = battleStateHandler.playerVote.ContainsKey ("green");
+        bool redVoteExists = Voting.ChosenOption[0] != 0;
+        bool blueVoteExists = Voting.ChosenOption[1] != 0;
+        bool whiteVoteExists = Voting.ChosenOption[2] != 0;
+        bool greenVoteExists = Voting.ChosenOption[3] != 0;
 
 
 		if(redVoteExists) {
-			int redVote = (int)battleStateHandler.playerVote ["red"];
+            int redVote = Voting.ChosenOption[0];
 			if(redVote > 0) {
 				//Red vote exists and is not default, so covert into index for indicator array
 				redVote -= 1; 
@@ -55,7 +55,7 @@ public class ChoiceHighlighter : MonoBehaviour {
 
 
 		if(blueVoteExists) {
-			int blueVote = (int)battleStateHandler.playerVote ["blue"];
+            int blueVote = Voting.ChosenOption[1];
 			if(blueVote > 0) {
 				//Blue vote exists and is not default, so covert into index for indicator array
 				blueVote -= 1; 
@@ -68,7 +68,7 @@ public class ChoiceHighlighter : MonoBehaviour {
 
 
 		if(whiteVoteExists) {
-			int whiteVote = (int)battleStateHandler.playerVote ["white"];
+            int whiteVote = Voting.ChosenOption[2];
 			if(whiteVote > 0) {
 				//White vote exists and is not default, so covert into index for indicator array
 				whiteVote -= 1; 
@@ -80,7 +80,7 @@ public class ChoiceHighlighter : MonoBehaviour {
 		}
 
 		if(greenVoteExists) {
-			int greenVote = (int)battleStateHandler.playerVote ["green"];
+            int greenVote = Voting.ChosenOption[3];
 			if(greenVote > 0) {
 				//Green vote exists and is not default, so covert into index for indicator array
 				greenVote -= 1; 

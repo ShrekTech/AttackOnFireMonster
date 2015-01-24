@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 
 public abstract class Enemy : MonoBehaviour {
-	private string name;
 	private int maxHitPoints;
 	private int currentHitPoints;
 	private List<BattleAction> actions;

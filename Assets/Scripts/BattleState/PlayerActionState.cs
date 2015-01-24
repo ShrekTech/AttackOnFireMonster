@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -8,13 +7,12 @@ namespace BattleScenario {
 	public class PlayerActionState : IBattleState {
 
 		private float actionTime = 2.0f;
-		private Boolean majorityDecision = false;
-		private Boolean actionPerformed = false;
-		private BattleStateHandler.PlayerAction highestVotedAction = BattleStateHandler.PlayerAction.DEFAULT;
+		private bool majorityDecision = false;
+		private bool actionPerformed = false;
 		private Image attackBallImage;
 		public BattleAction playerAction;
 
-		public IBattleState UpdateState (BattleStateHandler battleStateHandle)
+        public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (actionTime <= 0) {
 				if(playerAction != null) {
@@ -31,86 +29,95 @@ namespace BattleScenario {
 			return this;
 		}
 
-		public void Update (BattleStateHandler battleStateHandler)
-		{	
-			actionTime -= Time.deltaTime;
+        public void Update(BattleStateHandler battleStateHandler)
+        {
+            actionTime -= Time.deltaTime;
 
-			AnimateAttackBall (Time.deltaTime);
+            AnimateAttackBall(Time.deltaTime);
 
-			if (actionPerformed) {
-				return;
-			}
+            if (actionPerformed) {
+                return;
+            }
 
-			var playerVotes = battleStateHandler.playerVote;
+            if (Network.isServer) {
+                var playerVotes = Voting.ChosenOption;
 
-			if (this.highestVotedAction.Equals(BattleStateHandler.PlayerAction.DEFAULT)) {
-				TallyVotes (playerVotes);
-			}
+                int highestVotedAction = 0;
 
-			if (!majorityDecision) {
-				//blow up
-				return;
-			}
+                if (battleStateHandler.highestVotedAction == 0) {
+                    highestVotedAction = TallyVotes(playerVotes);
+                    System.Array.Clear(playerVotes, 0, playerVotes.Length);
+                }
 
-			switch (this.highestVotedAction) {
-				case BattleStateHandler.PlayerAction.FIREBALL:
-					{
-						playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
-						attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
-							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
-							MonoBehaviour.Destroy(attackBallImage, 2.0f);
-					}
-					break;
-				case BattleStateHandler.PlayerAction.COLDBALL:
-					{
-							playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
-							attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
-							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
-							MonoBehaviour.Destroy(attackBallImage, 2.0f);
-							break;
-					}
-				case BattleStateHandler.PlayerAction.DEFEND:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException ();
-			}
-			actionPerformed = true;
-		}
+                battleStateHandler.networkView.RPC("SetHighestVotedAction", RPCMode.All, highestVotedAction);
+            }
 
-		void TallyVotes (Dictionary<string, BattleStateHandler.PlayerAction> playerVotes)
+            if (battleStateHandler.highestVotedAction != 0) {
+                switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
+                    case BattleStateHandler.PlayerAction.FIREBALL: {
+                            playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
+                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
+                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
+                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
+                        }
+                        break;
+                    case BattleStateHandler.PlayerAction.COLDBALL: {
+                            playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
+                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
+                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
+                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
+                            break;
+                        }
+                    case BattleStateHandler.PlayerAction.DEFEND:
+                        break;
+                    default:
+                        Debug.LogError("Unhandled player action");
+                        break;
+                }
+                battleStateHandler.highestVotedAction = 0;
+                actionPerformed = true;
+            }
+        }
+
+        int TallyVotes(int[] playerVotes)
 		{
-			List<Votes> talliedVotes = new List<Votes> ();
-			Votes fireballVotes = new Votes (BattleStateHandler.PlayerAction.FIREBALL);
-			Votes iceballVotes = new Votes (BattleStateHandler.PlayerAction.COLDBALL);
-			Votes defaultVotes = new Votes (BattleStateHandler.PlayerAction.DEFEND);
-			talliedVotes.Add (fireballVotes);
-			talliedVotes.Add (iceballVotes);
-			talliedVotes.Add (defaultVotes);
-			foreach (var playerVote in playerVotes) {
-				switch (playerVote.Value) {
-				case BattleStateHandler.PlayerAction.FIREBALL:
-					fireballVotes.IncrementVoteCount ();
-					break;
-				case BattleStateHandler.PlayerAction.COLDBALL:
-					iceballVotes.IncrementVoteCount ();
-					break;
-				case BattleStateHandler.PlayerAction.DEFEND:
-					defaultVotes.IncrementVoteCount ();
-					break;
-				default:
-					throw new ArgumentOutOfRangeException ();
-				}
-			}
+            List<Votes> talliedVotes = new List<Votes>();
+            Votes fireballVotes = new Votes(BattleStateHandler.PlayerAction.FIREBALL);
+            Votes iceballVotes = new Votes(BattleStateHandler.PlayerAction.COLDBALL);
+            Votes defaultVotes = new Votes(BattleStateHandler.PlayerAction.DEFEND);
+            talliedVotes.Add(fireballVotes);
+            talliedVotes.Add(iceballVotes);
+            talliedVotes.Add(defaultVotes);
+            for (int playerIndex = 0; playerIndex < playerVotes.Length; ++playerIndex) {
+                switch ((BattleStateHandler.PlayerAction)playerVotes[playerIndex]) {
+                    case BattleStateHandler.PlayerAction.FIREBALL:
+                        fireballVotes.IncrementVoteCount();
+                        break;
+                    case BattleStateHandler.PlayerAction.COLDBALL:
+                        iceballVotes.IncrementVoteCount();
+                        break;
+                    case BattleStateHandler.PlayerAction.DEFEND:
+                        defaultVotes.IncrementVoteCount();
+                        break;
+                    case BattleStateHandler.PlayerAction.DEFAULT:
+                        break;
+                    default:
+                        Debug.LogError(string.Format("Unhandled player action '{0}' got votes.", playerVotes[playerIndex]));
+                        break;
+                }
+            }
 			talliedVotes.Sort ();
-			this.highestVotedAction = talliedVotes [0].GetPlayerAction ();
+            int highestVotedAction = (int)talliedVotes[0].GetPlayerAction();
 
-			if (talliedVotes [0].GetVoteCount () == talliedVotes [1].GetVoteCount ()) {
-				// indecision
-				majorityDecision = false;
-			} else {
-				majorityDecision = true;
-			}
-			playerVotes.Clear ();
+            if (talliedVotes[0].GetVoteCount() == talliedVotes[1].GetVoteCount()) {
+                // indecision
+                majorityDecision = false;
+            }
+            else {
+                majorityDecision = true;
+            }
+
+            return highestVotedAction;
 		}
 
 		void AnimateAttackBall(float deltaTime) {
@@ -123,7 +130,7 @@ namespace BattleScenario {
 			}
 		}
 
-		public class Votes : IComparable<Votes>
+		public class Votes : System.IComparable<Votes>
 		{
 			private BattleStateHandler.PlayerAction playerAction;
 			private int votes;
@@ -148,7 +155,8 @@ namespace BattleScenario {
 				++this.votes;
 			}
 
-			public int CompareTo (Votes other) {
+            public int CompareTo(Votes other)
+            {
 				return other.votes - this.votes;
 			}
 		}
