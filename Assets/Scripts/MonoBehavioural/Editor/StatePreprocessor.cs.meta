@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 2ea1e24cf4a27ff4e864b2f3bb404eb5
 =======
 guid: 3a2bb0e841ec1d241b61eb40e424b1cb
 >>>>>>> origin/feature/battleScenario
+=======
+guid: 2ea1e24cf4a27ff4e864b2f3bb404eb5
+>>>>>>> e5f2699c90af84e3b7481061e9c989b917537cd3
 MonoImporter:
   serializedVersion: 2
   defaultReferences: []

@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 1dd5535eb1861d54290afe4fa91dd971
 =======
 guid: dd4aebe3d8ea4bc40915699e37a53fcc
 >>>>>>> origin/feature/battleScenario
+=======
+guid: 1dd5535eb1861d54290afe4fa91dd971
+>>>>>>> e5f2699c90af84e3b7481061e9c989b917537cd3
 folderAsset: yes
 DefaultImporter:
   userData: 
