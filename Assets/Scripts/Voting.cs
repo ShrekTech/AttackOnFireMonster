@@ -98,23 +98,5 @@ public class Voting : MonoBehaviour
     void Vote(int playerIndex, int option)
     {
         ChosenOption[playerIndex] = option;
-
-        if (Network.isServer) {
-            if (AllVotesAreIn()) {
-                //ResetVotes();
-                var networkView = GetComponent<NetworkView>();
-                networkView.RPC("ResetVotes", RPCMode.All);
-
-                networkView.RPC("ActOnVote", RPCMode.All, Progress);
-
-                Debug.Log("Got votes");
-            }
-        }
-    }
-
-    [RPC]
-    void ActOnVote(int option)
-    {
-
     }
 }
