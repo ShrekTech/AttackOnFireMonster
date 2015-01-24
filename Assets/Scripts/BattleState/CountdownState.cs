@@ -14,12 +14,17 @@ namespace BattleScenario {
 
             nextSync = Time.time + syncIntervalSeconds;
             battleStateHandler.SyncCountdownTime();
+
+            battleStateHandler.timerDisplay.CrossFadeAlpha(1, 0.5f, false);
         }
 
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (battleStateHandler.ServerCountdownTime <= 0) {
                 Debug.Log("Countdown done");
+
+                battleStateHandler.timerDisplay.CrossFadeAlpha(0, 0.1f, false);
+
 				return new PlayerActionState();
 			}
 			return this;
@@ -35,6 +40,8 @@ namespace BattleScenario {
             }
 
             battleStateHandler.ServerCountdownTime -= Time.deltaTime;
+
+            battleStateHandler.timerDisplay.fillAmount = 1f - (battleStateHandler.ServerCountdownTime / CountdownState.countdownInitial);
 		}
 	}
 }

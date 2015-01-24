@@ -19,6 +19,7 @@ public class BattleStateHandler : MonoBehaviour {
     public float ServerCountdownTime;
 
     public int highestVotedAction;
+
     [RPC]
     public void SetWinner(int highestVotedAction)
     {
@@ -57,12 +58,12 @@ public class BattleStateHandler : MonoBehaviour {
 	void Awake () {
 		this.canvas = GetComponentInParent<Canvas> ();
 		this.currentBattleState = new CountdownState(this);
+
+        //timerDisplay.color = Color.clear;
 	}
 
 	void Update () {
         this.currentBattleState = this.currentBattleState.UpdateState(this);
 		this.currentBattleState.Update (this);
-
-        this.timerDisplay.fillAmount = 1f - (ServerCountdownTime / CountdownState.countdownInitial);
 	}
 }

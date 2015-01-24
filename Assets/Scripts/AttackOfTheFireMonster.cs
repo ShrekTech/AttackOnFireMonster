@@ -68,18 +68,18 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
         new ConvoChoice() { "Placeholder words.", "Placeholder!", "Placeholder.", "Placeholder?" },
     };
 
-    void OnGUI()
-    {
-        GUILayout.BeginArea(new Rect(10, 10, Screen.width - 10, 200));
-        {
-            GUILayout.BeginVertical(GUI.skin.window);
-            {
-                GUILayout.Label(string.Format("Server: {0}", Network.isServer));
-            }
-            GUILayout.EndVertical();
-        }
-        GUILayout.EndArea();
-    }
+    //void OnGUI()
+    //{
+    //    GUILayout.BeginArea(new Rect(10, 10, Screen.width - 10, 200));
+    //    {
+    //        GUILayout.BeginVertical(GUI.skin.window);
+    //        {
+    //            GUILayout.Label(string.Format("Server: {0}", Network.isServer));
+    //        }
+    //        GUILayout.EndVertical();
+    //    }
+    //    GUILayout.EndArea();
+    //}
     //    GUI.skin.label.richText = true;
     //    GUILayout.BeginArea(new Rect(10, 10, Screen.width - 10, 200));
     //    {
