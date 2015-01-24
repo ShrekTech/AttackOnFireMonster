@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerActionVoteCounter : MonoBehaviour {
-
-	public BattleStateHandler battleStateHandler;
+public class PlayerActionVoteTaker : MonoBehaviour {
+    public Voting PlayerZeroVoter;
 
 	public void OnClick (int playerActionToVoteFor) {
-        battleStateHandler.playerVote[Voting.GlobalClientIndex] = (BattleStateHandler.PlayerAction)playerActionToVoteFor;
+        PlayerZeroVoter.SendOption(playerActionToVoteFor);
 	}
 }

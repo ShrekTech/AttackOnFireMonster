@@ -70,21 +70,31 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
 
     void OnGUI()
     {
-        GUI.skin.label.richText = true;
         GUILayout.BeginArea(new Rect(10, 10, Screen.width - 10, 200));
         {
             GUILayout.BeginVertical(GUI.skin.window);
             {
-                GUILayout.Label(string.Format("<color=lime>{0}</color>", ConvoParts[Progress].Words));
-
-                GUILayout.Label(string.Format("[Q] {0}", ConvoParts[Progress].OptionA));
-                GUILayout.Label(string.Format("[W] {0}", ConvoParts[Progress].OptionB));
-                GUILayout.Label(string.Format("[E] {0}", ConvoParts[Progress].OptionC));
+                GUILayout.Label(string.Format("Server: {0}", Network.isServer));
             }
             GUILayout.EndVertical();
         }
         GUILayout.EndArea();
     }
+    //    GUI.skin.label.richText = true;
+    //    GUILayout.BeginArea(new Rect(10, 10, Screen.width - 10, 200));
+    //    {
+    //        GUILayout.BeginVertical(GUI.skin.window);
+    //        {
+    //            GUILayout.Label(string.Format("<color=lime>{0}</color>", ConvoParts[Progress].Words));
+
+    //            GUILayout.Label(string.Format("[Q] {0}", ConvoParts[Progress].OptionA));
+    //            GUILayout.Label(string.Format("[W] {0}", ConvoParts[Progress].OptionB));
+    //            GUILayout.Label(string.Format("[E] {0}", ConvoParts[Progress].OptionC));
+    //        }
+    //        GUILayout.EndVertical();
+    //    }
+    //    GUILayout.EndArea();
+    //}
 
     IEnumerator Start()
     {
@@ -119,8 +129,6 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
             }
             else {
                 MasterServer.RegisterHost("Cool", "Game Namee");
-
-                Network.Instantiate(SpritePrefab, Vector3.up, Quaternion.identity, 0);
             }
         }
     }

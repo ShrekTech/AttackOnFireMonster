@@ -4,22 +4,37 @@ using System.Collections;
 namespace BattleScenario {
 	public class CountdownState : IBattleState {
 
-		private const float countdownInitial = 3.0f;
-		private float countdown = countdownInitial;
-		private static CountdownState INSTANCE;
+		public const float countdownInitial = 3.0f;
+        const float syncIntervalSeconds = 1f;
+        float nextSync;
 
-		public IBattleState UpdateState ()
+        public CountdownState(BattleStateHandler battleStateHandler)
+        {
+            battleStateHandler.ServerCountdownTime = countdownInitial;
+
+            nextSync = Time.time + syncIntervalSeconds;
+            battleStateHandler.SyncCountdownTime();
+        }
+
+        public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
-			if (countdown <= 0) {
+			if (battleStateHandler.ServerCountdownTime <= 0) {
+                Debug.Log("Countdown done");
 				return new PlayerActionState();
 			}
 			return this;
 		}
 
-		public void Update (BattleStateHandler battleStateHandler)
+        public void Update(BattleStateHandler battleStateHandler)
 		{
-			countdown -= Time.deltaTime;
-			Debug.Log ("Countdown: " + countdown);
+            if (Network.isServer) {
+                if (Time.time > nextSync) {
+                    nextSync = Time.time + syncIntervalSeconds;
+                    battleStateHandler.SyncCountdownTime();
+                }
+            }
+
+            battleStateHandler.ServerCountdownTime -= Time.deltaTime;
 		}
 	}
 }
