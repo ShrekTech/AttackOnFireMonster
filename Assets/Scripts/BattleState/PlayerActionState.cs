@@ -17,11 +17,13 @@ namespace BattleScenario {
 		public IBattleState UpdateState (BattleStateHandler battleStateHandle)
 		{
 			if (actionTime <= 0) {
-				if(playerAction.GetTarget() == BattleAction.Target.Self) {
-					// TODO: apply action to player
-				} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
-					// TODO: add this back in when enemies exist
-					//playerAction.Apply(battleStateHandle.enemy);
+				if(playerAction != null) {
+					if(playerAction.GetTarget() == BattleAction.Target.Self) {
+						// TODO: apply action to player
+					} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
+						// TODO: add this back in when enemies exist
+						//playerAction.Apply(battleStateHandle.enemy);
+					}
 				}
 
 				return new EnemyActionState();
