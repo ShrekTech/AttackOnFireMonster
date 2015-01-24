@@ -28,6 +28,16 @@ namespace BattleScenario {
 			return this;
 		}
 
+		static void ShootBall (Canvas canvas, Player player, Image projectilePrefab)
+		{
+			Image projectile = MonoBehaviour.Instantiate (projectilePrefab) as Image;
+			projectile.transform.SetParent (canvas.transform, false);
+			projectile.transform.position = player.transform.position;
+			Rigidbody2D projectileBody = projectile.GetComponent<Rigidbody2D> ();
+			projectileBody.velocity = new Vector2 (1000, 700);
+			MonoBehaviour.Destroy (projectile, 1.0f);
+		}
+
         public void Update(BattleStateHandler battleStateHandler)
         {
             actionTime -= Time.deltaTime;
@@ -52,16 +62,12 @@ namespace BattleScenario {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
                             playerAction = new BattleAction(10, BattleAction.DamageType.Fire);
-                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
-                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
+							ShootBall (battleStateHandler.canvas, battleStateHandler.player, battleStateHandler.fireballPrefab);
                         }
                         break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
                             playerAction = new BattleAction(20, BattleAction.DamageType.Cold);
-                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
-                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
+							ShootBall (battleStateHandler.canvas, battleStateHandler.player, battleStateHandler.coldballPrefab);
                             break;
                         }
                     case BattleStateHandler.PlayerAction.DEFEND:
