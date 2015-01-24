@@ -3,11 +3,11 @@ using System.Collections;
 
 namespace BattleScenario
 {
-	class MonsterActionState : IBattleState
+	class EnemyActionState : IBattleState
 	{
 		private float actionTime = 2.0f;
 
-		public IBattleState UpdateState ()
+		public IBattleState UpdateState (BattleStateHandler battleStateHandler)
 		{
 			if (actionTime <= 0) {
 				return new CountdownState();

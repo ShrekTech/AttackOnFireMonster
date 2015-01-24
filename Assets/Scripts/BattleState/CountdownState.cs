@@ -8,7 +8,7 @@ namespace BattleScenario {
 		private float countdown = countdownInitial;
 		private static CountdownState INSTANCE;
 
-		public IBattleState UpdateState ()
+		public IBattleState UpdateState (BattleStateHandler battleStateHandler)
 		{
 			if (countdown <= 0) {
 				return new PlayerActionState();

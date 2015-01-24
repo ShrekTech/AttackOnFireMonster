@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class BattleStateHandler : MonoBehaviour {
 
+	public enum PlayerAction {
+		DEFAULT,
+		FIREBALL,
+		COLDBALL,
+		DEFEND
+	}
+
 	private IBattleState currentBattleState;
 
 	public Image fireballPrefab;
@@ -14,12 +21,7 @@ public class BattleStateHandler : MonoBehaviour {
 	[System.NonSerialized]
 	public Canvas canvas;
 
-	public enum PlayerAction {
-		DEFAULT,
-		FIREBALL,
-		COLDBALL,
-		DEFEND
-	}
+	public IBattleActionable enemy;
 
 	public Dictionary<string, PlayerAction> playerVote = new Dictionary<string, PlayerAction>();
 
@@ -29,7 +31,7 @@ public class BattleStateHandler : MonoBehaviour {
 	}
 
 	void Update () {
-		this.currentBattleState = this.currentBattleState.UpdateState ();
+		this.currentBattleState = this.currentBattleState.UpdateState (this);
 		this.currentBattleState.Update (this);
 	}
 }
