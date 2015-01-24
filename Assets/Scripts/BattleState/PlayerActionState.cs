@@ -12,11 +12,19 @@ namespace BattleScenario {
 		private Boolean actionPerformed = false;
 		private BattleStateHandler.PlayerAction highestVotedAction = BattleStateHandler.PlayerAction.DEFAULT;
 		private Image attackBallImage;
+		public BattleAction playerAction;
 
-		public IBattleState UpdateState ()
+		public IBattleState UpdateState (BattleStateHandler battleStateHandle)
 		{
 			if (actionTime <= 0) {
-				return new MonsterActionState();
+				if(playerAction.GetTarget() == BattleAction.Target.Self) {
+					// TODO: apply action to player
+				} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
+					// TODO: add this back in when enemies exist
+					//playerAction.Apply(battleStateHandle.enemy);
+				}
+
+				return new EnemyActionState();
 			}
 			return this;
 		}
@@ -45,6 +53,7 @@ namespace BattleScenario {
 			switch (this.highestVotedAction) {
 				case BattleStateHandler.PlayerAction.FIREBALL:
 					{
+						playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
 						attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
 							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 							MonoBehaviour.Destroy(attackBallImage, 2.0f);
@@ -52,6 +61,7 @@ namespace BattleScenario {
 					break;
 				case BattleStateHandler.PlayerAction.COLDBALL:
 					{
+							playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
 							attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
 							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 							MonoBehaviour.Destroy(attackBallImage, 2.0f);

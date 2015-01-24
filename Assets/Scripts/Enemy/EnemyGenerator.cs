@@ -1,20 +1,17 @@
-using Unity;
+using UnityEngine;
 using System.Collections.Generic;
 
-namespace ai {
-	public class EnemyGenerator {
-		private List<Enemy> enemyPool = new List<Enemy>();
-		
-		public EnemyGenerator() {
-			this.ememyPool = {
-				new Enemy("Fire Monster", {"Fireball", "Cold ball"}),
-				new Enemy("Sound Designer", {"Fail to exist"}),
-				new Enemy("Man with pitchfork", {"Throw potatoes", "Pitchfork"})
-			};
-		}
-		
-		public Enemy GenerateEnemy() {
-			return enemyPool[Random.Range(0, this.enemyPool.count)]
-		}
+public class EnemyGenerator {
+	private List<Enemy> enemyPool = new List<Enemy>();
+	
+	public EnemyGenerator() {
+		enemyPool = new List<Enemy>();
+		//enemyPool.Add(new Enemy("Fire Monster", {"Fireball", "Cold ball"}));
+		//enemyPool.Add(new Enemy("Sound Designer", {"Fail to exist"}));
+		//enemyPool.Add(new Enemy("Man with pitchfork", {"Throw potatoes", "Pitchfork"}));
+	}
+	
+	public Enemy GenerateEnemy() {
+		return enemyPool[Random.Range(0, this.enemyPool.Count)];
 	}
 }

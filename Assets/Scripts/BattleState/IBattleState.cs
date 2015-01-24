@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace BattleScenario {
 	public interface IBattleState {
-		IBattleState UpdateState();
+		IBattleState UpdateState(BattleStateHandler battleStateHandle);
 		void Update(BattleStateHandler battleStateHandler);
 	}
 }
