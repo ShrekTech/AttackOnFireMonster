@@ -26,6 +26,7 @@ public class Voting : MonoBehaviour
         }
     }
 
+    public static int GlobalClientIndex = 0;
     public int MyPlayerIndex = 0;
     // NOTE: options start at 1 (0 is "no option selected")
     public void SendOption(int option)

@@ -6,6 +6,6 @@ public class PlayerActionVoteCounter : MonoBehaviour {
 	public BattleStateHandler battleStateHandler;
 
 	public void OnClick (int playerActionToVoteFor) {
-		battleStateHandler.playerVote ["MEEEE"] = (BattleStateHandler.PlayerAction) playerActionToVoteFor;
+        battleStateHandler.playerVote[Voting.GlobalClientIndex] = (BattleStateHandler.PlayerAction)playerActionToVoteFor;
 	}
 }

@@ -21,7 +21,7 @@ public class BattleStateHandler : MonoBehaviour {
 		DEFEND
 	}
 
-	public Dictionary<string, PlayerAction> playerVote = new Dictionary<string, PlayerAction>();
+	public PlayerAction[] playerVote = new PlayerAction[Voting.MaxPlayers];
 
 	void Awake () {
 		this.canvas = GetComponentInParent<Canvas> ();

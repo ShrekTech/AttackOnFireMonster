@@ -31,11 +31,12 @@ namespace BattleScenario {
 			var playerVotes = battleStateHandler.playerVote;
 
 			if (this.highestVotedAction.Equals(BattleStateHandler.PlayerAction.DEFAULT)) {
-				TallyVotes (playerVotes);
+				TallyVotes(playerVotes);
+                System.Array.Clear(playerVotes, 0, playerVotes.Length);
 			}
 
 			if (!majorityDecision) {
-				//blow up
+				//blrow up
 				return;
 			}
 
@@ -70,40 +71,40 @@ namespace BattleScenario {
 			actionPerformed = true;
 		}
 
-		void TallyVotes (Dictionary<string, BattleStateHandler.PlayerAction> playerVotes)
+        void TallyVotes(BattleStateHandler.PlayerAction[] playerVotes)
 		{
-			List<Votes> talliedVotes = new List<Votes> ();
-			Votes fireballVotes = new Votes (BattleStateHandler.PlayerAction.FIREBALL);
-			Votes iceballVotes = new Votes (BattleStateHandler.PlayerAction.COLDBALL);
-			Votes defaultVotes = new Votes (BattleStateHandler.PlayerAction.DEFEND);
+            List<Votes> talliedVotes = new List<Votes>();
+            Votes fireballVotes = new Votes(BattleStateHandler.PlayerAction.FIREBALL);
+            Votes iceballVotes = new Votes(BattleStateHandler.PlayerAction.COLDBALL);
+            Votes defaultVotes = new Votes(BattleStateHandler.PlayerAction.DEFEND);
 			talliedVotes.Add (fireballVotes);
 			talliedVotes.Add (iceballVotes);
 			talliedVotes.Add (defaultVotes);
-			foreach (var playerVote in playerVotes) {
-				switch (playerVote.Value) {
-				case BattleStateHandler.PlayerAction.FIREBALL:
-					fireballVotes.IncrementVoteCount ();
-					break;
-				case BattleStateHandler.PlayerAction.COLDBALL:
-					iceballVotes.IncrementVoteCount ();
-					break;
-				case BattleStateHandler.PlayerAction.DEFEND:
-					defaultVotes.IncrementVoteCount ();
-					break;
-				default:
-					throw new ArgumentOutOfRangeException ();
-				}
-			}
+            for (int playerIndex = 0; playerIndex < playerVotes.Length; ++playerIndex) {
+                switch (playerVotes[playerIndex]) {
+                    case BattleStateHandler.PlayerAction.FIREBALL:
+                        fireballVotes.IncrementVoteCount();
+                        break;
+                    case BattleStateHandler.PlayerAction.COLDBALL:
+                        iceballVotes.IncrementVoteCount();
+                        break;
+                    case BattleStateHandler.PlayerAction.DEFEND:
+                        defaultVotes.IncrementVoteCount();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
 			talliedVotes.Sort ();
 			this.highestVotedAction = talliedVotes [0].GetPlayerAction ();
 
-			if (talliedVotes [0].GetVoteCount () == talliedVotes [1].GetVoteCount ()) {
-				// indecision
-				majorityDecision = false;
-			} else {
-				majorityDecision = true;
-			}
-			playerVotes.Clear ();
+            if (talliedVotes[0].GetVoteCount() == talliedVotes[1].GetVoteCount()) {
+                // indecision
+                majorityDecision = false;
+            }
+            else {
+                majorityDecision = true;
+            }
 		}
 
 		public class Votes : IComparable<Votes>
@@ -131,7 +132,8 @@ namespace BattleScenario {
 				++this.votes;
 			}
 
-			public int CompareTo (Votes other) {
+            public int CompareTo(Votes other)
+            {
 				return other.votes - this.votes;
 			}
 		}
