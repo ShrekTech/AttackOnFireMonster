@@ -14,15 +14,14 @@ namespace BattleScenario {
 		private Image attackBallImage;
 		public BattleAction playerAction;
 
-		public IBattleState UpdateState (BattleStateHandler battleStateHandle)
+		public IBattleState UpdateState (BattleStateHandler battleStateHandler)
 		{
 			if (actionTime <= 0) {
 				if(playerAction != null) {
 					if(playerAction.GetTarget() == BattleAction.Target.Self) {
 						// TODO: apply action to player
 					} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
-						// TODO: add this back in when enemies exist
-						//playerAction.Apply(battleStateHandle.enemy);
+						playerAction.Apply(battleStateHandler.enemy);
 					}
 				}
 
@@ -70,6 +69,7 @@ namespace BattleScenario {
 							break;
 					}
 				case BattleStateHandler.PlayerAction.DEFEND:
+							playerAction = new BattleAction(-20, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException ();

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 
@@ -8,6 +9,7 @@ public abstract class Enemy : MonoBehaviour {
 	private int currentHitPoints;
 	private List<BattleAction> actions;
 
+	public Image enemyImage;
 	
 	public Enemy(string name, int maxHitPoints, List<BattleAction> actions) {
 		this.name = name;

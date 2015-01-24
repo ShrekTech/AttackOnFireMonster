@@ -21,7 +21,7 @@ public class BattleStateHandler : MonoBehaviour {
 	[System.NonSerialized]
 	public Canvas canvas;
 
-	public IBattleActionable enemy;
+	public FireMonster enemy;
 
 	public Dictionary<string, PlayerAction> playerVote = new Dictionary<string, PlayerAction>();
 
