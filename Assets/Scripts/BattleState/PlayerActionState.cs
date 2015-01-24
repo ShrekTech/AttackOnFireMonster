@@ -19,8 +19,7 @@ namespace BattleScenario {
 					if(playerAction.GetTarget() == BattleAction.Target.Self) {
 						// TODO: apply action to player
 					} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
-						// TODO: add this back in when enemies exist
-						//playerAction.Apply(battleStateHandle.enemy);
+						playerAction.Apply(battleStateHandler.enemy);
 					}
 				}
 
@@ -30,14 +29,14 @@ namespace BattleScenario {
 		}
 
         public void Update(BattleStateHandler battleStateHandler)
-        {
-            actionTime -= Time.deltaTime;
+		{	
+			actionTime -= Time.deltaTime;
 
             AnimateAttackBall(Time.deltaTime);
 
-            if (actionPerformed) {
-                return;
-            }
+			if (actionPerformed) {
+				return;
+			}
 
             if (Network.isServer) {
                 var playerVotes = Voting.ChosenOption;
@@ -47,36 +46,37 @@ namespace BattleScenario {
                 if (battleStateHandler.highestVotedAction == 0) {
                     highestVotedAction = TallyVotes(playerVotes);
                     System.Array.Clear(playerVotes, 0, playerVotes.Length);
-                }
+			}
 
                 battleStateHandler.networkView.RPC("SetHighestVotedAction", RPCMode.All, highestVotedAction);
-            }
+			}
 
             if (battleStateHandler.highestVotedAction != 0) {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
+						playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
                             attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
-                        }
-                        break;
+							MonoBehaviour.Destroy(attackBallImage, 2.0f);
+					}
+					break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
+							playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
                             attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
-                            break;
-                        }
-                    case BattleStateHandler.PlayerAction.DEFEND:
-                        break;
-                    default:
+							MonoBehaviour.Destroy(attackBallImage, 2.0f);
+							break;
+					}
+				case BattleStateHandler.PlayerAction.DEFEND:
+							playerAction = new BattleAction(-20, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+					break;
+				default:
                         Debug.LogError("Unhandled player action");
                         break;
-                }
+			}
                 battleStateHandler.highestVotedAction = 0;
-                actionPerformed = true;
-            }
+			actionPerformed = true;
+		}
         }
 
         int TallyVotes(int[] playerVotes)
@@ -90,32 +90,32 @@ namespace BattleScenario {
             talliedVotes.Add(defaultVotes);
             for (int playerIndex = 0; playerIndex < playerVotes.Length; ++playerIndex) {
                 switch ((BattleStateHandler.PlayerAction)playerVotes[playerIndex]) {
-                    case BattleStateHandler.PlayerAction.FIREBALL:
+				case BattleStateHandler.PlayerAction.FIREBALL:
                         fireballVotes.IncrementVoteCount();
-                        break;
-                    case BattleStateHandler.PlayerAction.COLDBALL:
+					break;
+				case BattleStateHandler.PlayerAction.COLDBALL:
                         iceballVotes.IncrementVoteCount();
-                        break;
-                    case BattleStateHandler.PlayerAction.DEFEND:
+					break;
+				case BattleStateHandler.PlayerAction.DEFEND:
                         defaultVotes.IncrementVoteCount();
-                        break;
+					break;
                     case BattleStateHandler.PlayerAction.DEFAULT:
                         break;
-                    default:
+				default:
                         Debug.LogError(string.Format("Unhandled player action '{0}' got votes.", playerVotes[playerIndex]));
                         break;
-                }
-            }
+				}
+			}
 			talliedVotes.Sort ();
             int highestVotedAction = (int)talliedVotes[0].GetPlayerAction();
 
             if (talliedVotes[0].GetVoteCount() == talliedVotes[1].GetVoteCount()) {
-                // indecision
-                majorityDecision = false;
+				// indecision
+				majorityDecision = false;
             }
             else {
-                majorityDecision = true;
-            }
+				majorityDecision = true;
+			}
 
             return highestVotedAction;
 		}

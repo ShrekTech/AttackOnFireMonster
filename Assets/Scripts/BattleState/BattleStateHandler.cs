@@ -16,6 +16,7 @@ public class BattleStateHandler : MonoBehaviour {
 	[System.NonSerialized]
 	public Canvas canvas;
 
+	public FireMonster enemy;
     public float ServerCountdownTime;
 
     public int highestVotedAction;
@@ -54,7 +55,6 @@ public class BattleStateHandler : MonoBehaviour {
 		COLDBALL,
 		DEFEND
 	}
-	public IBattleActionable enemy;
 
 	void Awake () {
 		this.canvas = GetComponentInParent<Canvas> ();
