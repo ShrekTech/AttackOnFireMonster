@@ -11,7 +11,9 @@ public class BattleStateHandler : MonoBehaviour {
 	public Image fireballPrefab;
 	public Image coldballPrefab;
 
+    public CanvasGroup timerCanvas;
     public Image timerDisplay;
+    public Image timerLabel;
 
 	[System.NonSerialized]
 	public Canvas canvas;
