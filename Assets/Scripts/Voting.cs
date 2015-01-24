@@ -11,21 +11,6 @@ public class Voting : MonoBehaviour
     [System.NonSerialized]
     public static int[] ChosenOption = new int[MaxPlayers];
 
-    void Update()
-    {
-        int option = 0;
-        if (Input.GetKeyDown(KeyCode.Q))
-            option = 1;
-        if (Input.GetKeyDown(KeyCode.W))
-            option = 2;
-        if (Input.GetKeyDown(KeyCode.E))
-            option = 3;
-
-        if (option != 0) {
-            SendOption(option);
-        }
-    }
-
     public int MyPlayerIndex = 0;
     // NOTE: options start at 1 (0 is "no option selected")
     public void SendOption(int option)
