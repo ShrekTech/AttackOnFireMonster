@@ -8,7 +8,8 @@ namespace ai {
 		public EnemyGenerator() {
 			this.ememyPool = {
 				new Enemy("Fire Monster", {"Fireball", "Cold ball"}),
-				new Enemy("Sound Designer", {"Fail to exist"})
+				new Enemy("Sound Designer", {"Fail to exist"}),
+				new Enemy("Man with pitchfork", {"Throw potatoes", "Pitchfork"})
 			};
 		}
 		
