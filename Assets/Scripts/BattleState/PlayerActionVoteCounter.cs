@@ -3,46 +3,44 @@ using System.Collections;
 
 public class PlayerActionVoteCounter : MonoBehaviour {
 
-	public BattleStateHandler battleStateHandler;
-
 	public void Update () {
-		if(Input.GetKey(KeyCode.A)) {
+		if(Input.GetKeyDown(KeyCode.A)) {
 			Voting.ChosenOption[Voting.RED] = (int)BattleStateHandler.PlayerAction.FIREBALL;
 		}
-		if(Input.GetKey(KeyCode.S)) {
+        if (Input.GetKeyDown(KeyCode.S)) {
             Voting.ChosenOption[Voting.RED] = (int)BattleStateHandler.PlayerAction.COLDBALL;
 		}
-		if(Input.GetKey(KeyCode.D)) {
+        if (Input.GetKeyDown(KeyCode.D)) {
             Voting.ChosenOption[Voting.RED] = (int)BattleStateHandler.PlayerAction.DEFEND;
 		}
 
-		if(Input.GetKey(KeyCode.R)) {
+        if (Input.GetKeyDown(KeyCode.R)) {
 			Voting.ChosenOption[Voting.BLUE] = (int)BattleStateHandler.PlayerAction.FIREBALL;
 		}
-		if(Input.GetKey(KeyCode.T)) {
+        if (Input.GetKeyDown(KeyCode.T)) {
 			Voting.ChosenOption[Voting.BLUE] = (int)BattleStateHandler.PlayerAction.COLDBALL;
 		}
-		if(Input.GetKey(KeyCode.Y)) {
+        if (Input.GetKeyDown(KeyCode.Y)) {
 			Voting.ChosenOption[Voting.BLUE] = (int)BattleStateHandler.PlayerAction.DEFEND;
 		}
 
-		if(Input.GetKey(KeyCode.J)) {
+        if (Input.GetKeyDown(KeyCode.J)) {
 			Voting.ChosenOption[Voting.WHITE] = (int)BattleStateHandler.PlayerAction.FIREBALL;
 		}
-		if(Input.GetKey(KeyCode.K)) {
+        if (Input.GetKeyDown(KeyCode.K)) {
 			Voting.ChosenOption[Voting.WHITE] = (int)BattleStateHandler.PlayerAction.COLDBALL;
 		}
-		if(Input.GetKey(KeyCode.L)) {
+        if (Input.GetKeyDown(KeyCode.L)) {
 			Voting.ChosenOption[Voting.WHITE] = (int)BattleStateHandler.PlayerAction.DEFEND;
 		}
 
-		if(Input.GetKey(KeyCode.Keypad4)) {
+        if (Input.GetKeyDown(KeyCode.Keypad4)) {
 			Voting.ChosenOption[Voting.GREEN] = (int)BattleStateHandler.PlayerAction.FIREBALL;
 		}
-		if(Input.GetKey(KeyCode.Keypad5)) {
+        if (Input.GetKeyDown(KeyCode.Keypad5)) {
 			Voting.ChosenOption[Voting.GREEN] = (int)BattleStateHandler.PlayerAction.COLDBALL;
 		}
-		if(Input.GetKey(KeyCode.Keypad6)) {
+        if (Input.GetKeyDown(KeyCode.Keypad6)) {
 			Voting.ChosenOption[Voting.GREEN] = (int)BattleStateHandler.PlayerAction.DEFEND;
 		}
 	}
