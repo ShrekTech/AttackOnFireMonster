@@ -244,6 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329d0ad6feb52884faedf38e4fc0e301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireballPrefab: {fileID: 11471172, guid: 5144503809be77f48863bacfdf0cdcdd, type: 2}
+  coldballPrefab: {fileID: 11471172, guid: 5144503809be77f48863bacfdf0cdcdd, type: 2}
 --- !u!1 &966807048
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +257,7 @@ GameObject:
   - 222: {fileID: 966807051}
   - 114: {fileID: 966807050}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Defend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,7 +305,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Defend
 --- !u!222 &966807051
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -540,7 +542,7 @@ GameObject:
   - 222: {fileID: 1078146551}
   - 114: {fileID: 1078146550}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Cold Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -588,7 +590,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Cold Ball
 --- !u!222 &1078146551
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -654,13 +656,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1094309535}
-        m_MethodName: ShootMotherfuckingProjectile
-        m_Mode: 1
+        m_MethodName: OnClick
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -720,10 +722,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1094309530}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59244c73de3277e449a51e00d2123689, type: 3}
+  m_Script: {fileID: 11500000, guid: 65bb09b57547ddf4a84f1e9df686e4c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 11471172, guid: 5144503809be77f48863bacfdf0cdcdd, type: 2}
+  battleStateHandler: {fileID: 860025503}
 --- !u!1 &1418003567
 GameObject:
   m_ObjectHideFlags: 0

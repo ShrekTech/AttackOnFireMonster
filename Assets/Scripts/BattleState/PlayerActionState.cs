@@ -91,6 +91,7 @@ namespace BattleScenario {
 			} else {
 				majorityDecision = true;
 			}
+			playerVotes.Clear ();
 		}
 
 		public class Votes : IComparable<Votes>
