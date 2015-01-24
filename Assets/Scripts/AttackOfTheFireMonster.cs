@@ -86,29 +86,6 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
         GUILayout.EndArea();
     }
 
-    void Update()
-    {
-        int option = 0;
-        if (Input.GetKeyDown(KeyCode.Q))
-            option = 1;
-        if (Input.GetKeyDown(KeyCode.W))
-            option = 2;
-        if (Input.GetKeyDown(KeyCode.E))
-            option = 3;
-
-        if (option != 0) {
-            SendOption(option);
-        }
-    }
-
-    public int MyPlayerIndex = 0;
-    // NOTE: options start at 1 (0 is "no option selected")
-    void SendOption(int option)
-    {
-        var networkView = GetComponent<NetworkView>();
-        networkView.RPC("Vote", RPCMode.All, MyPlayerIndex, option);
-    }
-
     IEnumerator Start()
     {
         MasterServer.ipAddress = "127.0.0.1";
@@ -143,9 +120,6 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
             else {
                 MasterServer.RegisterHost("Cool", "Game Namee");
 
-                MyPlayerIndex = 0;
-                ++currentPlayerCount;
-
                 Network.Instantiate(SpritePrefab, Vector3.up, Quaternion.identity, 0);
             }
         }
@@ -156,81 +130,10 @@ Backstreet's back alright~", "(Sing along)", "Are you singing right now? Because
         MasterServer.UnregisterHost();
     }
 
-    int currentPlayerCount = 0;
-
-    void OnPlayerConnected(NetworkPlayer player)
-    {
-        Debug.Log("Player " + currentPlayerCount + " connected from " + player.ipAddress + ":" + player.port);
-        if (currentPlayerCount < MaxPlayers) {
-            var networkView = GetComponent<NetworkView>();
-            networkView.RPC("SetPlayerIndex", player, currentPlayerCount);
-
-            ++currentPlayerCount;
-        }
-        else {
-            Network.CloseConnection(player, true);
-        }
-    }
-
-    void OnPlayerDisconnected(NetworkPlayer player)
-    {
-        --currentPlayerCount;
-
-        var networkView = GetComponent<NetworkView>();
-        for (int i = 0; i < Network.connections.Length; ++i)
-            networkView.RPC("SetPlayerIndex", Network.connections[i], i);
-    }
 
     void OnDisconnectedFromServer(NetworkDisconnection info)
     {
         Debug.Log("Disconnected from server: " + info);
         // TODO: Host migration?
-    }
-
-    [RPC]
-    void SetPlayerIndex(int value)
-    {
-        Debug.Log(value);
-        MyPlayerIndex = value;
-    }
-
-    bool AllVotesAreIn()
-    {
-        // TODO: unity-test assert currentPlayerCount < ChosenOption.Length
-        for (int playerIndex = 0; playerIndex < currentPlayerCount; ++playerIndex) {
-            if (ChosenOption[playerIndex] == 0)
-                return false;
-        }
-        return true;
-    }
-
-    [RPC]
-    void ResetVotes()
-    {
-        System.Array.Clear(ChosenOption, 0, ChosenOption.Length);
-    }
-
-    [RPC]
-    void SetProgress(int value)
-    {
-        Progress = value;
-    }
-
-    [RPC]
-    void Vote(int playerIndex, int option)
-    {
-        ChosenOption[playerIndex] = option;
-
-        if (Network.isServer) {
-            if (AllVotesAreIn()) {
-                //ResetVotes();
-                var networkView = GetComponent<NetworkView>();
-                networkView.RPC("ResetVotes", RPCMode.All);
-                ++Progress;
-                // Note: Yuck
-                // TODO: un-yuck
-                networkView.RPC("SetProgress", RPCMode.OthersBuffered, Progress);
-            }
-        }
     }
 }
