@@ -21,6 +21,8 @@ public class BattleStateHandler : MonoBehaviour {
 
     public int highestVotedAction;
 
+	public Player player;
+
     [RPC]
     public void FinaliseHighestVotedAction(int highestVotedAction)
     {

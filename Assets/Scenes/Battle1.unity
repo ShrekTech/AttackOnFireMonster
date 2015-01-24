@@ -1335,6 +1335,7 @@ GameObject:
   - 224: {fileID: 713884336}
   - 222: {fileID: 713884338}
   - 114: {fileID: 713884337}
+  - 114: {fileID: 713884339}
   m_Layer: 5
   m_Name: FemaleProtagonist
   m_TagString: Untagged
@@ -1386,6 +1387,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 713884335}
+--- !u!114 &713884339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 713884335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ade8b10e7d022340930501fd4b3457a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHitPoints: 60
 --- !u!1 &717205933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,7 +1564,7 @@ AudioSource:
   serializedVersion: 3
   m_audioClip: {fileID: 8300000, guid: 7fdf891d7ba652640a089f3eb0b2793f, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1754,6 +1767,7 @@ MonoBehaviour:
   enemy: {fileID: 717205937}
   ServerCountdownTime: 0
   highestVotedAction: 0
+  player: {fileID: 713884339}
 --- !u!114 &860025504
 MonoBehaviour:
   m_ObjectHideFlags: 0

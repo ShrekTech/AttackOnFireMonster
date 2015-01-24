@@ -13,8 +13,6 @@ public class FireMonster : Enemy, IBattleActionable {
         currentHitPoints = MAX_HITPOINTS;
     }
 
-	#region IBattleActionable implementation
-
 	public List<BattleAction.DamageType> getResists ()
 	{
 		return new List<BattleAction.DamageType>();
@@ -24,6 +22,4 @@ public class FireMonster : Enemy, IBattleActionable {
 	{
 		base.TakeDamage(damage);
 	}
-
-	#endregion
 }

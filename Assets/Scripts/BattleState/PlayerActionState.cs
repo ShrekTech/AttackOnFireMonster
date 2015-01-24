@@ -51,21 +51,21 @@ namespace BattleScenario {
             if (battleStateHandler.highestVotedAction != 0) {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
+                            playerAction = new BattleAction(10, BattleAction.DamageType.Fire);
                             attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                             MonoBehaviour.Destroy(attackBallImage, 2.0f);
                         }
                         break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
+                            playerAction = new BattleAction(20, BattleAction.DamageType.Cold);
                             attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                             MonoBehaviour.Destroy(attackBallImage, 2.0f);
                             break;
                         }
                     case BattleStateHandler.PlayerAction.DEFEND:
-                        playerAction = new BattleAction(-20, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+                        playerAction = new BattleAction(-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
                         break;
                     default:
                         Debug.LogError("Unhandled player action");
