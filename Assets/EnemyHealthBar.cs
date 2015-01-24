@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent (typeof (Image))]
-public class HealthBar : MonoBehaviour {
+public class EnemyHealthBar : MonoBehaviour {
 
 	public Enemy enemy;
 	private Image healthBarImage;

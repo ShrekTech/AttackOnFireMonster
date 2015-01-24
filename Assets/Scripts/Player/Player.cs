@@ -4,7 +4,7 @@ using System.Collections;
 public class Player : MonoBehaviour, IBattleActionable {
 	
 	public int maxHitPoints;
-	private int currentHitPoints;
+	public int currentHitPoints;
 
 	void Awake()
 	{
