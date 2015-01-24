@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace BattleScenario {
 	public class CountdownState : IBattleState {
 
-		public const float countdownInitial = 3.0f;
+		public const float countdownInitial = 1.1f;
         const float syncIntervalSeconds = 1f;
         float nextSync;
 
