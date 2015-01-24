@@ -14,6 +14,10 @@ namespace BattleScenario {
 
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
+			if (battleStateHandler.player.IsDead ()) {
+				return new EndGameState(false);
+			}
+
             bool animationDone = actionPerformed && attackBallImage == null;
             if (animationDone || actionTimeout <= 0) {
                 if (playerAction != null) {
@@ -22,7 +26,8 @@ namespace BattleScenario {
                     string targetName = "Nobody";
                     if (playerAction.GetTarget() == BattleAction.Target.Self) {
                         // TODO: apply action to player
-
+						actorName = "EVERYONE";
+						targetName = battleStateHandler.player.name;
                         actorName = battleStateHandler.enemy.name;
                         targetName = "EVERYONE";
                     }
@@ -69,13 +74,13 @@ namespace BattleScenario {
             if (battleStateHandler.highestVotedAction != 0) {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
+                            playerAction = new BattleAction(15, BattleAction.DamageType.Fire);
                             attackBallImage = Object.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                         }
                         break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
-                            playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
+                            playerAction = new BattleAction(15, BattleAction.DamageType.Cold);
                             attackBallImage = Object.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                             break;

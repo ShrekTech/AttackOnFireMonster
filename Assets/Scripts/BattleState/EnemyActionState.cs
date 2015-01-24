@@ -39,7 +39,7 @@ namespace BattleScenario
 			}
 
 			if (!shotFired) {
-				Image fireBall = MonoBehaviour.Instantiate (battleStateHandler.fireballPrefab) as Image;
+				Image fireBall = MonoBehaviour.Instantiate (battleStateHandler.enemyFireballPrefab) as Image;
 				fireBall.transform.SetParent(battleStateHandler.canvas.transform, false);
 				fireBall.transform.position = battleStateHandler.enemy.transform.position;
 				Rigidbody2D fireBallBody = fireBall.GetComponent<Rigidbody2D>();
