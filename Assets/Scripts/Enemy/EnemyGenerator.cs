@@ -14,7 +14,7 @@ namespace ai {
 		}
 		
 		public Enemy GenerateEnemy() {
-			return enemyPool[Random.Range(0, this.enemyPool.count)]
+			return enemyPool[Random.Range(0, this.enemyPool.count)];
 		}
 	}
 }
