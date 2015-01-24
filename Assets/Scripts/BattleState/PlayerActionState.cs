@@ -7,7 +7,6 @@ namespace BattleScenario {
 	public class PlayerActionState : IBattleState {
 
 		private float actionTimeout = 5.0f;
-		private bool majorityDecision = false;
 		private bool actionPerformed = false;
 		private Image attackBallImage;
 		public BattleAction playerAction;
@@ -23,13 +22,16 @@ namespace BattleScenario {
                 if (playerAction != null) {
 
                     if (playerAction.GetTarget() == BattleAction.Target.Self) {
-						battleStateHandler.battleTextField.text = string.Format("HEAL! {0} Hit Points.", -playerAction.damage);
+						if(playerAction.damage < 0) {
+							battleStateHandler.battleTextField.text = string.Format("HEAL! {0} Hit Points.", -playerAction.damage);
+						} else {
+							battleStateHandler.battleTextField.text = string.Format("JULIANA hurt herself in her confusion! Self inflicted {0} Hit Points.", playerAction.damage);
+						}
 						playerAction.Apply(battleStateHandler.player);
                     }
                     else if (playerAction.GetTarget() == BattleAction.Target.Enemy) {
-                        playerAction.Apply(battleStateHandler.enemy);
-
 						if (playerAction.type != BattleAction.DamageType.Failure) {
+							playerAction.Apply(battleStateHandler.enemy);
 							battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
 						}
 						else {
@@ -64,29 +66,33 @@ namespace BattleScenario {
             }
 
             if (battleStateHandler.highestVotedAction != 0) {
-                switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
-                    case BattleStateHandler.PlayerAction.FIREBALL: {
-                            playerAction = new BattleAction(10, BattleAction.DamageType.Fire);
-                            attackBallImage = Object.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
-                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                        }
-                        break;
-                    case BattleStateHandler.PlayerAction.COLDBALL: {
-                            playerAction = new BattleAction(10, BattleAction.DamageType.Cold);
-                            attackBallImage = Object.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
-                            attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            break;
-                        }
-                    case BattleStateHandler.PlayerAction.DEFEND:
-                        playerAction = new BattleAction(-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
-                        break;
-                    default:
-                        Debug.LogError("Unhandled player action");
-                        break;
-                }
-                battleStateHandler.highestVotedAction = 0;
-                actionPerformed = true;
-            }
+					switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
+					case BattleStateHandler.PlayerAction.FIREBALL:
+							{
+									playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
+									attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
+									attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+							}
+							break;
+					case BattleStateHandler.PlayerAction.COLDBALL:
+							{
+									playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
+									attackBallImage = Object.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
+									attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+									break;
+							}
+					case BattleStateHandler.PlayerAction.DEFEND:
+							playerAction = new BattleAction (-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+							break;
+					default:
+							Debug.LogError ("Unhandled player action");
+							break;
+					}
+					battleStateHandler.highestVotedAction = 0;
+					actionPerformed = true;
+			} else {
+				playerAction = new BattleAction (10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+			}
         }
 
         int TallyVotes(int[] playerVotes)
@@ -120,12 +126,9 @@ namespace BattleScenario {
             int highestVotedAction = (int)talliedVotes[0].GetPlayerAction();
 
             if (talliedVotes[0].GetVoteCount() == talliedVotes[1].GetVoteCount()) {
-				// indecision
-				majorityDecision = false;
+				// indecision. '0' represents both default and indecision for now
+				return 0;
             }
-            else {
-				majorityDecision = true;
-			}
 
             return highestVotedAction;
 		}
