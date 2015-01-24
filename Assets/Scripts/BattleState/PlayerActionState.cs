@@ -11,6 +11,7 @@ namespace BattleScenario {
 		private Boolean majorityDecision = false;
 		private Boolean actionPerformed = false;
 		private BattleStateHandler.PlayerAction highestVotedAction = BattleStateHandler.PlayerAction.DEFAULT;
+		private Image attackBallImage;
 
 		public IBattleState UpdateState ()
 		{
@@ -23,6 +24,8 @@ namespace BattleScenario {
 		public void Update (BattleStateHandler battleStateHandler)
 		{	
 			actionTime -= Time.deltaTime;
+
+			AnimateAttackBall (Time.deltaTime);
 
 			if (actionPerformed) {
 				return;
@@ -42,24 +45,16 @@ namespace BattleScenario {
 			switch (this.highestVotedAction) {
 				case BattleStateHandler.PlayerAction.FIREBALL:
 					{
-						Image fireBall = MonoBehaviour.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
-							fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
-							Vector3 shiftedPosition = fireBall.transform.position;
-							shiftedPosition.x += 200;
-							shiftedPosition.y += 200;
-							fireBall.transform.position = shiftedPosition;
-							MonoBehaviour.Destroy(fireBall, 2.0f);
+						attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
+							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+							MonoBehaviour.Destroy(attackBallImage, 2.0f);
 					}
 					break;
 				case BattleStateHandler.PlayerAction.COLDBALL:
 					{
-							Image coldBall = MonoBehaviour.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
-							coldBall.transform.SetParent (battleStateHandler.canvas.transform, false);
-							Vector3 shiftedPosition = coldBall.transform.position;
-							shiftedPosition.x += 200;
-							shiftedPosition.y += 200;
-							coldBall.transform.position = shiftedPosition;	
-							MonoBehaviour.Destroy(coldBall, 2.0f);
+							attackBallImage = MonoBehaviour.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
+							attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+							MonoBehaviour.Destroy(attackBallImage, 2.0f);
 							break;
 					}
 				case BattleStateHandler.PlayerAction.DEFEND:
@@ -104,6 +99,16 @@ namespace BattleScenario {
 				majorityDecision = true;
 			}
 			playerVotes.Clear ();
+		}
+
+		void AnimateAttackBall(float deltaTime) {
+			if (attackBallImage != null) {
+				Vector3 shiftedPosition = attackBallImage.transform.position;
+				// TODO: probably don't hard code these
+				shiftedPosition.x += 100 * deltaTime;
+				shiftedPosition.y += 100 * deltaTime;
+				attackBallImage	.transform.position = shiftedPosition;
+			}
 		}
 
 		public class Votes : IComparable<Votes>
