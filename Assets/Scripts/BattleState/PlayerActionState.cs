@@ -16,13 +16,30 @@ namespace BattleScenario {
 		{
             bool animationDone = actionPerformed && attackBallImage == null;
             if (animationDone || actionTimeout <= 0) {
-				if(playerAction != null) {
-					if(playerAction.GetTarget() == BattleAction.Target.Self) {
-						// TODO: apply action to player
-					} else if(playerAction.GetTarget() == BattleAction.Target.Enemy) {
-						playerAction.Apply(battleStateHandler.enemy);
-					}
-				}
+                if (playerAction != null) {
+
+                    string actorName = "Nobody";
+                    string targetName = "Nobody";
+                    if (playerAction.GetTarget() == BattleAction.Target.Self) {
+                        // TODO: apply action to player
+
+                        actorName = battleStateHandler.enemy.name;
+                        targetName = "EVERYONE";
+                    }
+                    else if (playerAction.GetTarget() == BattleAction.Target.Enemy) {
+                        playerAction.Apply(battleStateHandler.enemy);
+
+                        actorName = "EVERYONE";
+                        targetName = battleStateHandler.enemy.name;
+                    }
+
+                    if (playerAction.type != BattleAction.DamageType.Failure) {
+                        battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", targetName, playerAction.damage, playerAction.type);
+                    }
+                    else {
+                        battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", actorName, "DEMOCRACY", playerAction.type);
+                    }
+                }
 
 				return new EnemyActionState();
 			}

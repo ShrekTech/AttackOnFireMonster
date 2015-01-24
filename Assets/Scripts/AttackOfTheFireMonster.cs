@@ -7,9 +7,11 @@ public class AttackOfTheFireMonster : MonoBehaviour
     [System.NonSerialized]
     public int[] ChosenOption = new int[MaxPlayers];
 
+    public string masterServerAddress = "127.0.0.1";
+
     IEnumerator Start()
     {
-        MasterServer.ipAddress = "127.0.0.1";
+        MasterServer.ipAddress = masterServerAddress;
         MasterServer.RequestHostList("Cool");
 
         // Try to find an existing host

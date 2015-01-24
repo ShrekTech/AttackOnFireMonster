@@ -1,6 +1,6 @@
 [System.Serializable]
 public class BattleAction {
-	public enum DamageType {RegularType, Fire, Cold};
+	public enum DamageType {RegularType, Fire, Cold, Failure};
 	public enum Target {Self, Enemy};
 
 	public int damage;

@@ -14,6 +14,8 @@ public class BattleStateHandler : MonoBehaviour {
     public Animator timerAnimator;
     public Image timerDisplay;
 
+    public Text battleTextField;
+
 	[System.NonSerialized]
 	public Canvas canvas;
 
@@ -56,7 +58,8 @@ public class BattleStateHandler : MonoBehaviour {
 		DEFAULT,
 		FIREBALL,
 		COLDBALL,
-		DEFEND
+		DEFEND,
+        STRUGGLE
 	}
 
 	void Awake () {
