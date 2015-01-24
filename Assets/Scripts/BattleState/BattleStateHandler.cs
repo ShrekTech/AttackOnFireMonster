@@ -20,6 +20,8 @@ public class BattleStateHandler : MonoBehaviour {
 		COLDBALL,
 		DEFEND
 	}
+	
+	public IBattleActionable enemy;
 
 	public Dictionary<string, PlayerAction> playerVote = new Dictionary<string, PlayerAction>();
 
@@ -29,7 +31,7 @@ public class BattleStateHandler : MonoBehaviour {
 	}
 
 	void Update () {
-		this.currentBattleState = this.currentBattleState.UpdateState ();
+		this.currentBattleState = this.currentBattleState.UpdateState (this);
 		this.currentBattleState.Update (this);
 	}
 }
