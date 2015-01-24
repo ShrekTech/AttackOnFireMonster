@@ -20,6 +20,8 @@ public class BattleStateHandler : MonoBehaviour {
 	[System.NonSerialized]
 	public Canvas canvas;
 
+	public Font font;
+
 	public FireMonster enemy;
     public float ServerCountdownTime;
 

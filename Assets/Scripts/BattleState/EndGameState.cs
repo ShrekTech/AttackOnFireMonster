@@ -29,7 +29,9 @@ namespace BattleScenario {
 				endText.text = "YOU WIN!!";
 				return;
 			}
-			endText.text = "TRY AGAIN!!";
+			endText.text = "Game Over";
+			endText.font = MonoBehaviour.Instantiate(battleStateHandler.font) as Font;
+			endText.color = Color.white;
 			messageDisplayed = true;
 		}
 	}
