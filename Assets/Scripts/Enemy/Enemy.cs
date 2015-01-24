@@ -1,19 +1,18 @@
-using System;
-using System.Coleections.Generic;
-using Unity;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace ai {
 	public class Enemy {
-		private List<BattleAction> actions;
+		private List<string> actions;
 		private string name;
 		
-		Enemy(string name, List<BattleAction> actions) {
+		public Enemy(string name, List<string> actions) {
 			this.name = name;
 			this.actions = actions;
 		}
 		
-		public BattleAction SelectBattleAction() {
-			return actions[Random.Range(0, actions.count)];
+		public string SelectBattleAction() {
+			return actions[Random.Range(0, actions.Count)];
 		}
 	}
 }

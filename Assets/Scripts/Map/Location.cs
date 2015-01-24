@@ -1,17 +1,24 @@
-using Unity;
+using UnityEngine;
 
 namespace MapScenario {
-	class Location {
-		private string name;
-		private Sprite sprite;
+	
+	[System.Serializable]
+	public class Location {
+		public string name;
+		public SpriteRenderer sprite;
 		//TODO: Maybe add enemies specific to each location?
 		
-		public Location(string name, Sprite sprite) {
+		public Location() {
+			this.name = "NAMELESS";
+			
+		}
+		
+		public Location(string name, SpriteRenderer sprite) {
 			this.name = name;
 			this.sprite = sprite;
 		}
 		
-		public int GetHeight() { return this.sprtie.rect.height; }
-		public int GetWidth() { return this.sprite.rect.width; }
+		public int GetHeight() { return 0; }// (int) this.sprite.rect.height; }
+		public int GetWidth() { return 0; }// (int) this.sprite.rect.width; }
 	}
 }

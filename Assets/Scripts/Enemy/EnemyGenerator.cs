@@ -1,4 +1,4 @@
-using Unity;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace ai {
@@ -6,15 +6,15 @@ namespace ai {
 		private List<Enemy> enemyPool = new List<Enemy>();
 		
 		public EnemyGenerator() {
-			this.ememyPool = {
-				new Enemy("Fire Monster", {"Fireball", "Cold ball"}),
-				new Enemy("Sound Designer", {"Fail to exist"}),
-				new Enemy("Man with pitchfork", {"Throw potatoes", "Pitchfork"})
+			this.enemyPool = new List<Enemy> (){
+				new Enemy("Fire Monster", new List<string>(){"Fireball", "Cold ball"}),
+				new Enemy("Sound Designer", new List<string>(){"Fail to exist"}),
+				new Enemy("Man with pitchfork", new List<string>(){"Throw potatoes", "Pitchfork"})
 			};
 		}
 		
 		public Enemy GenerateEnemy() {
-			return enemyPool[Random.Range(0, this.enemyPool.count)];
+			return enemyPool[(int) (Random.Range(0f, (float) this.enemyPool.Count))];
 		}
 	}
 }
