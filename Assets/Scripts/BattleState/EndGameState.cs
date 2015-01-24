@@ -22,17 +22,16 @@ namespace BattleScenario {
 			if (messageDisplayed) {
 				return;
 			}
-			Text endText = MonoBehaviour.Instantiate (battleStateHandler.endText) as Text;
-			endText.transform.SetParent (battleStateHandler.canvas.transform, false);
-
-			if (this.playerWin) {
-				endText.text = "YOU WIN!!";
-				return;
+			
+			Image endImage;
+			if (playerWin){
+				endImage = MonoBehaviour.Instantiate (battleStateHandler.winScreen, new Vector2(), Quaternion.identity) as Image;
+			} else {
+				endImage = MonoBehaviour.Instantiate (battleStateHandler.gameOverScreen, new Vector2(), Quaternion.identity) as Image;
 			}
-			endText.text = "Game Over";
-			endText.font = MonoBehaviour.Instantiate(battleStateHandler.font) as Font;
-			endText.color = Color.white;
+			endImage.transform.SetParent(battleStateHandler.canvas.transform, false);
 			messageDisplayed = true;
+			return;
 		}
 	}
 }
