@@ -49,8 +49,6 @@ namespace BattleScenario {
         {
             actionTimeout -= Time.deltaTime;
 
-            //AnimateAttackBall(Time.deltaTime);
-
             if (actionPerformed) {
                 return;
             }
@@ -131,16 +129,6 @@ namespace BattleScenario {
             }
 
             return highestVotedAction;
-		}
-
-		void AnimateAttackBall(float deltaTime) {
-			if (attackBallImage != null) {
-				Vector3 shiftedPosition = attackBallImage.transform.position;
-				// TODO: probably don't hard code these
-				shiftedPosition.x += 100 * deltaTime;
-				shiftedPosition.y += 100 * deltaTime;
-				attackBallImage	.transform.position = shiftedPosition;
-			}
 		}
 
 		public class Votes : System.IComparable<Votes>
