@@ -7,8 +7,6 @@ public class AttackOfTheFireMonster : MonoBehaviour
     [System.NonSerialized]
     public int[] ChosenOption = new int[MaxPlayers];
 
-    public int Progress = 0;
-
     IEnumerator Start()
     {
         MasterServer.ipAddress = "127.0.0.1";

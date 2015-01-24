@@ -11,8 +11,6 @@ public class Voting : MonoBehaviour
     [System.NonSerialized]
     public static int[] ChosenOption = new int[MaxPlayers];
 
-    public int Progress;
-
     void Update()
     {
         int option = 0;
@@ -88,12 +86,6 @@ public class Voting : MonoBehaviour
     void ResetVotes()
     {
         System.Array.Clear(ChosenOption, 0, ChosenOption.Length);
-    }
-
-    [RPC]
-    void SetProgress(int value)
-    {
-        Progress = value;
     }
 
     [RPC]
