@@ -14,8 +14,9 @@ namespace BattleScenario
 				return new EndGameState(true);
 			}
 			if (actionTime <= 0) {
-				BattleAction enemyAction = new BattleAction(10);
+				BattleAction enemyAction = new BattleAction(15);
 				enemyAction.Apply(battleStateHandler.player);
+				battleStateHandler.battleTextField.text = string.Format("Julia takes {0} damage", enemyAction.damage);
 				return new CountdownState(battleStateHandler);
 			}
 			return this;

@@ -22,27 +22,19 @@ namespace BattleScenario {
             if (animationDone || actionTimeout <= 0) {
                 if (playerAction != null) {
 
-                    string actorName = "Nobody";
-                    string targetName = "Nobody";
                     if (playerAction.GetTarget() == BattleAction.Target.Self) {
-                        // TODO: apply action to player
-						actorName = "EVERYONE";
-						targetName = battleStateHandler.player.name;
-                        actorName = battleStateHandler.enemy.name;
-                        targetName = "EVERYONE";
+						battleStateHandler.battleTextField.text = string.Format("HEAL! {0} Hit Points.", -playerAction.damage);
+						playerAction.Apply(battleStateHandler.player);
                     }
                     else if (playerAction.GetTarget() == BattleAction.Target.Enemy) {
                         playerAction.Apply(battleStateHandler.enemy);
 
-                        actorName = "EVERYONE";
-                        targetName = battleStateHandler.enemy.name;
-                    }
-
-                    if (playerAction.type != BattleAction.DamageType.Failure) {
-                        battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", targetName, playerAction.damage, playerAction.type);
-                    }
-                    else {
-                        battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", actorName, "DEMOCRACY", playerAction.type);
+						if (playerAction.type != BattleAction.DamageType.Failure) {
+							battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
+						}
+						else {
+							battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", "JULIANA", "DEMOCRACY", playerAction.type);
+						}
                     }
                 }
 
@@ -74,19 +66,19 @@ namespace BattleScenario {
             if (battleStateHandler.highestVotedAction != 0) {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
-                            playerAction = new BattleAction(15, BattleAction.DamageType.Fire);
+                            playerAction = new BattleAction(10, BattleAction.DamageType.Fire);
                             attackBallImage = Object.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                         }
                         break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
-                            playerAction = new BattleAction(15, BattleAction.DamageType.Cold);
+                            playerAction = new BattleAction(10, BattleAction.DamageType.Cold);
                             attackBallImage = Object.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
                             break;
                         }
                     case BattleStateHandler.PlayerAction.DEFEND:
-                        playerAction = new BattleAction(-20, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+                        playerAction = new BattleAction(-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
                         break;
                     default:
                         Debug.LogError("Unhandled player action");
