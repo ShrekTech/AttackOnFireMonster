@@ -21,4 +21,8 @@ public class Player : MonoBehaviour, IBattleActionable {
 		this.currentHitPoints -= damage;
 		Debug.Log ("Player health: " + this.currentHitPoints);
 	}
+
+	public bool IsDead() {
+		return currentHitPoints <= 0;
+	}
 }

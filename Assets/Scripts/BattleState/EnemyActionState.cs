@@ -8,9 +8,11 @@ namespace BattleScenario
 	{
 		private float actionTime = 2.0f;
 		private bool shotFired = false;
-
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
+			if (battleStateHandler.enemy.IsDead()) {
+				return new EndGameState(true);
+			}
 			if (actionTime <= 0) {
 				BattleAction enemyAction = new BattleAction(10);
 				enemyAction.Apply(battleStateHandler.player);
@@ -33,8 +35,6 @@ namespace BattleScenario
 					);
 
 				battleStateHandler.enemy.enemyImage.color = redEnemyColour;
-				// maybe should just transition to some game end state?
-				actionTime = 0;
 				return;
 			}
 

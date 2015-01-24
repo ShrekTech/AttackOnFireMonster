@@ -14,6 +14,10 @@ namespace BattleScenario {
 
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
+			if (battleStateHandler.player.IsDead()) {
+				return new EndGameState(false);
+			}
+
 			if (actionTime <= 0) {
 				if(playerAction != null) {
 					if(playerAction.GetTarget() == BattleAction.Target.Self) {
