@@ -11,9 +11,8 @@ public class BattleStateHandler : MonoBehaviour {
 	public Image fireballPrefab;
 	public Image coldballPrefab;
 
-    public CanvasGroup timerCanvas;
+    public Animator timerAnimator;
     public Image timerDisplay;
-    public Image timerLabel;
 
 	[System.NonSerialized]
 	public Canvas canvas;
@@ -64,6 +63,11 @@ public class BattleStateHandler : MonoBehaviour {
 		this.canvas = GetComponentInParent<Canvas> ();
         this.currentBattleState = new CountdownState(this);
 	}
+
+    void Start()
+    {
+        timerAnimator.Play("TimerOut");
+    }
 
 	void Update () {
         if (Network.isClient || Network.isServer) {

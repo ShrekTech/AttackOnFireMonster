@@ -24,8 +24,7 @@ namespace BattleScenario {
 
             //battleStateHandler.StartCoroutine(Fill(battleStateHandler.timerLabel, 1, 0.5f));
 
-            var animator = battleStateHandler.timerCanvas.GetComponent<Animator>();
-            animator.Play("TimerIn");
+            battleStateHandler.timerAnimator.Play("TimerIn");
 
         }
 
@@ -40,8 +39,7 @@ namespace BattleScenario {
 
                 //battleStateHandler.StartCoroutine(Fill(battleStateHandler.timerLabel, 0, 0.09f));
 
-                var animator = battleStateHandler.timerCanvas.GetComponent<Animator>();
-                animator.Play("TimerOut");
+                battleStateHandler.timerAnimator.Play("TimerOut");
 
 				return new PlayerActionState();
 			}

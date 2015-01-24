@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace BattleScenario {
 	public class PlayerActionState : IBattleState {
 
-		private float actionTime = 2.0f;
+		private float actionTimeout = 5.0f;
 		private bool majorityDecision = false;
 		private bool actionPerformed = false;
 		private Image attackBallImage;
@@ -14,7 +14,8 @@ namespace BattleScenario {
 
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
-			if (actionTime <= 0) {
+            bool animationDone = actionPerformed && attackBallImage == null;
+            if (animationDone || actionTimeout <= 0) {
 				if(playerAction != null) {
 					if(playerAction.GetTarget() == BattleAction.Target.Self) {
 						// TODO: apply action to player
@@ -30,9 +31,9 @@ namespace BattleScenario {
 
         public void Update(BattleStateHandler battleStateHandler)
         {
-            actionTime -= Time.deltaTime;
+            actionTimeout -= Time.deltaTime;
 
-            AnimateAttackBall(Time.deltaTime);
+            //AnimateAttackBall(Time.deltaTime);
 
             if (actionPerformed) {
                 return;
@@ -52,16 +53,14 @@ namespace BattleScenario {
                 switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
                     case BattleStateHandler.PlayerAction.FIREBALL: {
                             playerAction = new BattleAction(45, BattleAction.DamageType.Fire);
-                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
+                            attackBallImage = Object.Instantiate(battleStateHandler.fireballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
                         }
                         break;
                     case BattleStateHandler.PlayerAction.COLDBALL: {
                             playerAction = new BattleAction(45, BattleAction.DamageType.Cold);
-                            attackBallImage = MonoBehaviour.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
+                            attackBallImage = Object.Instantiate(battleStateHandler.coldballPrefab, new Vector2(), Quaternion.identity) as Image;
                             attackBallImage.transform.SetParent(battleStateHandler.canvas.transform, false);
-                            MonoBehaviour.Destroy(attackBallImage, 2.0f);
                             break;
                         }
                     case BattleStateHandler.PlayerAction.DEFEND:
