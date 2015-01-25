@@ -6,7 +6,8 @@ namespace BattleScenario
 {
 	class EnemyActionState : IBattleState
 	{
-		private float actionTime = 2.0f;
+		private float actionTime = 1.0f;
+        private float initialDelayTime = 1.0f;
 		private bool shotFired = false;
 		private Image fireBall;
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
@@ -36,6 +37,11 @@ namespace BattleScenario
 
 		public void Update (BattleStateHandler battleStateHandler)
 		{
+            if (initialDelayTime > 0) {
+                initialDelayTime -= Time.deltaTime;
+                return;
+            }
+
 			actionTime -= Time.deltaTime;
 
 			if (battleStateHandler.enemy.IsDead()) {
