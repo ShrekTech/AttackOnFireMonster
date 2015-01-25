@@ -1321,7 +1321,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 4
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -2734,6 +2734,8 @@ MonoBehaviour:
   highestVotedAction: 0
   player: {fileID: 713884339}
   endText: {fileID: 11414194, guid: 3731871eeac975d469ba1928e17f543f, type: 2}
+  currentFireMonsterState: 0
+  numberOfFireBallsHitBy: 0
 --- !u!114 &860025504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3597,6 +3599,8 @@ MonoBehaviour:
   highestVotedAction: 0
   player: {fileID: 0}
   endText: {fileID: 0}
+  currentFireMonsterState: 0
+  numberOfFireBallsHitBy: 0
 --- !u!114 &1133238573
 MonoBehaviour:
   m_ObjectHideFlags: 0

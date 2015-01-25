@@ -14,6 +14,7 @@ public class BattleStateHandler : MonoBehaviour {
 	public Image healBallPrefab;
 	public Image enemyFireballPrefab;
 
+
     public Animator timerAnimator;
     public Image timerDisplay;
 
@@ -32,6 +33,9 @@ public class BattleStateHandler : MonoBehaviour {
 
 	public Player player;
 	public Text endText;
+
+	public FireMonsterState currentFireMonsterState = FireMonsterState.ATTACKING;
+	public int numberOfFireBallsHitBy;
 
     [RPC]
     public void FinaliseHighestVotedAction(int highestVotedAction)
@@ -69,6 +73,11 @@ public class BattleStateHandler : MonoBehaviour {
 		COLDBALL,
 		DEFEND,
         STRUGGLE
+	}
+
+	public enum FireMonsterState {
+		ATTACKING,
+		PARALYSED
 	}
 
 	void Awake () {
