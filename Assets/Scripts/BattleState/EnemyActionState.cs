@@ -6,7 +6,7 @@ namespace BattleScenario
 {
 	class EnemyActionState : IBattleState
 	{
-		private float actionTime = 1.0f;
+		private float actionTime = 2.0f;
 		private bool shotFired = false;
 		private Image fireBall;
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
@@ -26,7 +26,7 @@ namespace BattleScenario
 			bool animationDone = shotFired && this.fireBall == null;
 
 			if (animationDone || actionTime <= 0) {
-				BattleAction enemyAction = new BattleAction(15);
+				BattleAction enemyAction = new BattleAction(10);
 				enemyAction.Apply(battleStateHandler.player);
 				battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
 				return new CountdownState(battleStateHandler);

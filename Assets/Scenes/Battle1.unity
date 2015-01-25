@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ade8b10e7d022340930501fd4b3457a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 60
+  maxHitPoints: 100
   currentHitPoints: 0
 --- !u!1 &717205933
 GameObject:
@@ -1503,6 +1503,8 @@ MonoBehaviour:
   highestVotedAction: 0
   player: {fileID: 713884339}
   endText: {fileID: 11414194, guid: 3731871eeac975d469ba1928e17f543f, type: 2}
+  currentFireMonsterState: 0
+  numberOfFireBallsHitBy: 0
 --- !u!114 &860025504
 MonoBehaviour:
   m_ObjectHideFlags: 0
