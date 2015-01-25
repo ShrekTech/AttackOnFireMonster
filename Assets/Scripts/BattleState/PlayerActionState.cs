@@ -31,8 +31,29 @@ namespace BattleScenario {
                     }
                     else if (playerAction.GetTarget() == BattleAction.Target.Enemy) {
 						if (playerAction.type != BattleAction.DamageType.Failure) {
+
 							playerAction.Apply(battleStateHandler.enemy);
-							battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
+
+							string messageText = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
+
+							if((playerAction.type == BattleAction.DamageType.Fire) && (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING)) {
+
+								if(battleStateHandler.numberOfFireBallsHitBy < 1 ) {
+									messageText += " .  The Fire Monster becomes uncomfortably hot!";
+									++ battleStateHandler.numberOfFireBallsHitBy;
+								} else {
+									messageText += " .  The Fire Monster is too much on fire!!  She/he is now paralysed!!";
+									battleStateHandler.numberOfFireBallsHitBy = 0;
+									battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.PARALYSED;
+								}
+							} else if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
+								messageText += " .  The Fire Monster is no long Paralysed!!";
+								battleStateHandler.numberOfFireBallsHitBy = 0;
+								battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.ATTACKING;
+							}
+
+							battleStateHandler.battleTextField.text = messageText;
+						
 						}
 						else {
 							battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", "JULIANA", "DEMOCRACY", playerAction.type);

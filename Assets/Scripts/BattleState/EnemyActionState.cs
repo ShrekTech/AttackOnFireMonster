@@ -6,13 +6,21 @@ namespace BattleScenario
 {
 	class EnemyActionState : IBattleState
 	{
-		private float actionTime = 2.0f;
+		private float actionTime = 1.0f;
 		private bool shotFired = false;
 		private Image fireBall;
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (battleStateHandler.enemy.IsDead()) {
 				return new EndGameState(true);
+			}
+
+			if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
+				battleStateHandler.battleTextField.text = "The Fire Monster is Paralysed!!";
+				if (actionTime <= 0) {
+					return new CountdownState(battleStateHandler);
+				}
+				return this;
 			}
 
 			bool animationDone = shotFired && this.fireBall == null;
@@ -43,7 +51,7 @@ namespace BattleScenario
 				return;
 			}
 
-			if (!shotFired) {
+			if (!shotFired && battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING) {
 				this.fireBall = MonoBehaviour.Instantiate (battleStateHandler.enemyFireballPrefab) as Image;
 				this.fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
 				shotFired = true;
