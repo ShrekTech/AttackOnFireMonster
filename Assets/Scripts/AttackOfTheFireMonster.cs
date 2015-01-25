@@ -11,6 +11,8 @@ public class AttackOfTheFireMonster : MonoBehaviour
 
     IEnumerator Start()
     {
+		#if !UNITY_WEBPLAYER
+
         string configPath = string.Format("{0}/masterserverhost.txt", Application.persistentDataPath);
         if (System.IO.File.Exists(configPath)) {
             string masterServerConfig = System.IO.File.ReadAllText(configPath);
@@ -18,7 +20,7 @@ public class AttackOfTheFireMonster : MonoBehaviour
                 masterServerAddress = masterServerConfig;
             }
         }
-
+		#endif
         if (!string.IsNullOrEmpty(masterServerAddress))
             MasterServer.ipAddress = masterServerAddress;
         MasterServer.RequestHostList("Cool");
