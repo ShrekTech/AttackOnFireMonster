@@ -8,15 +8,19 @@ namespace BattleScenario
 	{
 		private float actionTime = 2.0f;
 		private bool shotFired = false;
+		private Image fireBall;
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (battleStateHandler.enemy.IsDead()) {
 				return new EndGameState(true);
 			}
-			if (actionTime <= 0) {
+
+			bool animationDone = shotFired && this.fireBall == null;
+
+			if (animationDone || actionTime <= 0) {
 				BattleAction enemyAction = new BattleAction(15);
 				enemyAction.Apply(battleStateHandler.player);
-				battleStateHandler.battleTextField.text = string.Format("Julia takes {0} damage", enemyAction.damage);
+				battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
 				return new CountdownState(battleStateHandler);
 			}
 			return this;
@@ -40,8 +44,8 @@ namespace BattleScenario
 			}
 
 			if (!shotFired) {
-				Image fireBall = MonoBehaviour.Instantiate (battleStateHandler.enemyFireballPrefab) as Image;
-				fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
+				this.fireBall = MonoBehaviour.Instantiate (battleStateHandler.enemyFireballPrefab) as Image;
+				this.fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
 				shotFired = true;
 			}
 			
