@@ -18,7 +18,7 @@ namespace BattleScenario
 			bool animationDone = shotFired && this.fireBall == null;
 
 			if (animationDone || actionTime <= 0) {
-				BattleAction enemyAction = new BattleAction(15);
+				BattleAction enemyAction = new BattleAction(10);
 				enemyAction.Apply(battleStateHandler.player);
 				battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
 				return new CountdownState(battleStateHandler);

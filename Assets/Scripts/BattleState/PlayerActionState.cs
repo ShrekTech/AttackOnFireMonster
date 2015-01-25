@@ -67,14 +67,14 @@ namespace BattleScenario {
 					switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
 					case BattleStateHandler.PlayerAction.FIREBALL:
 							{
-								playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
+								playerAction = new BattleAction (0, BattleAction.DamageType.Fire);
 								attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
 								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 								break;
 							}
 					case BattleStateHandler.PlayerAction.COLDBALL:
 							{
-								playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
+								playerAction = new BattleAction (12, BattleAction.DamageType.Cold);
 								attackBallImage = Object.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
 								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 								break;
@@ -93,7 +93,7 @@ namespace BattleScenario {
 					battleStateHandler.highestVotedAction = 0;
 					actionPerformed = true;
 			} else {
-				playerAction = new BattleAction (10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+				playerAction = new BattleAction (5, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
 				attackBallImage = Object.Instantiate (battleStateHandler.selfHitBallPrefab, new Vector2 (), Quaternion.identity) as Image;
 				attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 				actionPerformed = true;
