@@ -16,7 +16,7 @@ namespace BattleScenario
 			}
 
 			if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
-				battleStateHandler.battleTextField.text = "The Fire Monster is Paralysed!!";
+				battleStateHandler.battleTextField.text = "The Fire Monster is paralysed!!";
 				if (actionTime <= 0) {
 					return new CountdownState(battleStateHandler);
 				}
