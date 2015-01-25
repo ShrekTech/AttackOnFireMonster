@@ -67,21 +67,25 @@ namespace BattleScenario {
 					switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
 					case BattleStateHandler.PlayerAction.FIREBALL:
 							{
-									playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
-									attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
-									attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
-									break;
+								playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
+								attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
+								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+								break;
 							}
 					case BattleStateHandler.PlayerAction.COLDBALL:
 							{
-									playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
-									attackBallImage = Object.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
-									attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
-									break;
+								playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
+								attackBallImage = Object.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
+								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+								break;
 							}
 					case BattleStateHandler.PlayerAction.DEFEND:
-							playerAction = new BattleAction (-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
-							break;
+							{
+								playerAction = new BattleAction (-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+								attackBallImage = Object.Instantiate (battleStateHandler.healBallPrefab, new Vector2 (), Quaternion.identity) as Image;
+								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+								break;
+							}
 					default:
 							Debug.LogError ("Unhandled player action");
 							break;

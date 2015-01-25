@@ -11,6 +11,7 @@ public class BattleStateHandler : MonoBehaviour {
 	public Image fireballPrefab;
 	public Image coldballPrefab;
 	public Image selfHitBallPrefab;
+	public Image healBallPrefab;
 	public Image enemyFireballPrefab;
 
     public Animator timerAnimator;

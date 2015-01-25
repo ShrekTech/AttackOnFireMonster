@@ -990,7 +990,7 @@ GameObject:
   - 222: {fileID: 666112902}
   - 114: {fileID: 666112901}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Heal Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1040,7 +1040,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Defend
+  m_Text: Heal Ball
 --- !u!222 &666112902
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1490,6 +1490,7 @@ MonoBehaviour:
   fireballPrefab: {fileID: 11471172, guid: 5144503809be77f48863bacfdf0cdcdd, type: 2}
   coldballPrefab: {fileID: 11485606, guid: bdc4a9adefd670d4c8d2cb866faa656c, type: 2}
   selfHitBallPrefab: {fileID: 11471172, guid: a35ed8a73e5520342ab1c3c0b68f838a, type: 2}
+  healBallPrefab: {fileID: 11427828, guid: cbd4c90dcdcdb364e9d38d95fbdaaa9a, type: 2}
   enemyFireballPrefab: {fileID: 11472174, guid: 1634f24ad60e2b545ae9c529158015e8,
     type: 2}
   timerAnimator: {fileID: 1600107558}
@@ -2236,7 +2237,7 @@ Prefab:
       objectReference: {fileID: 860025503}
     - target: {fileID: 11482102, guid: ea6363013a5e3ee4496fa19343e897ce, type: 2}
       propertyPath: m_Text
-      value: Defend
+      value: Heal Ball
       objectReference: {fileID: 0}
     - target: {fileID: 11482104, guid: ea6363013a5e3ee4496fa19343e897ce, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -2249,6 +2250,10 @@ Prefab:
     - target: {fileID: 11482104, guid: ea6363013a5e3ee4496fa19343e897ce, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 182102, guid: ea6363013a5e3ee4496fa19343e897ce, type: 2}
+      propertyPath: m_Name
+      value: Heal Ball
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11482108, guid: ea6363013a5e3ee4496fa19343e897ce, type: 2}
