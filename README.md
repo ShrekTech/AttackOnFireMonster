@@ -1,2 +1,3 @@
 # AttackOnFireMonster
-A game about fire monsters, democracy and yelling at each other created for Global Game Jam 2015.
+A game about fire monsters, democracy and yelling at each other made using Unity for Global Game Jam 2015.
+Still very much a work in progress.
