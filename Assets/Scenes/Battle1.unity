@@ -1489,11 +1489,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireballPrefab: {fileID: 11471172, guid: 5144503809be77f48863bacfdf0cdcdd, type: 2}
   coldballPrefab: {fileID: 11485606, guid: bdc4a9adefd670d4c8d2cb866faa656c, type: 2}
+  selfHitBallPrefab: {fileID: 11471172, guid: a35ed8a73e5520342ab1c3c0b68f838a, type: 2}
   enemyFireballPrefab: {fileID: 11472174, guid: 1634f24ad60e2b545ae9c529158015e8,
     type: 2}
   timerAnimator: {fileID: 1600107558}
   timerDisplay: {fileID: 1600107560}
   battleTextField: {fileID: 451521464}
+  font: {fileID: 0}
   enemy: {fileID: 717205937}
   ServerCountdownTime: 0
   highestVotedAction: 0

@@ -90,6 +90,9 @@ namespace BattleScenario {
 					actionPerformed = true;
 			} else {
 				playerAction = new BattleAction (10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+				attackBallImage = Object.Instantiate (battleStateHandler.selfHitBallPrefab, new Vector2 (), Quaternion.identity) as Image;
+				attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
+				actionPerformed = true;
 			}
         }
 

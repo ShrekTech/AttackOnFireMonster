@@ -10,6 +10,7 @@ public class BattleStateHandler : MonoBehaviour {
 
 	public Image fireballPrefab;
 	public Image coldballPrefab;
+	public Image selfHitBallPrefab;
 	public Image enemyFireballPrefab;
 
     public Animator timerAnimator;
