@@ -39,15 +39,15 @@ namespace BattleScenario {
 							if((playerAction.type == BattleAction.DamageType.Fire) && (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING)) {
 
 								if(battleStateHandler.numberOfFireBallsHitBy < 1 ) {
-									messageText += " .  Fire Monster is uncomfortably hot!";
+									messageText += "!  Fire Monster is uncomfortably hot!";
 									++ battleStateHandler.numberOfFireBallsHitBy;
 								} else {
-									messageText += " .  The Fire Monster is paralysed!!";
+									messageText += "!  The Fire Monster is paralysed!!";
 									battleStateHandler.numberOfFireBallsHitBy = 0;
 									battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.PARALYSED;
 								}
 							} else if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
-								messageText += " .  Paralysis undone!!";
+								messageText += "!  Paralysis undone!!";
 								battleStateHandler.numberOfFireBallsHitBy = 0;
 								battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.ATTACKING;
 							}

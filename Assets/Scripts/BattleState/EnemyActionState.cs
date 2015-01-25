@@ -10,6 +10,9 @@ namespace BattleScenario
         private float initialDelayTime = 1.0f;
 		private bool shotFired = false;
 		private Image fireBall;
+
+        BattleAction enemyAction;
+
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (battleStateHandler.enemy.IsDead()) {
@@ -19,9 +22,10 @@ namespace BattleScenario
 			bool animationDone = shotFired && this.fireBall == null;
 
 			if (animationDone || actionTime <= 0) {
-				BattleAction enemyAction = new BattleAction(10);
-				enemyAction.Apply(battleStateHandler.player);
-				battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
+                if (enemyAction != null) {
+                    enemyAction.Apply(battleStateHandler.player);
+                    battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
+                }
 				return new CountdownState(battleStateHandler);
 			}
 			return this;
@@ -59,8 +63,9 @@ namespace BattleScenario
 				this.fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
 				shotFired = true;
 			}
-			
 
+            // Take action
+            enemyAction = new BattleAction(10);
 		}
 	}
 
