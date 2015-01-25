@@ -25,7 +25,7 @@ namespace BattleScenario {
 						if(playerAction.damage < 0) {
 							battleStateHandler.battleTextField.text = string.Format("HEAL {0} Hit Points!", -playerAction.damage);
 						} else {
-							battleStateHandler.battleTextField.text = string.Format("JULIANA hurt herself in her confusion! Self inflicted {0} Hit Points.", playerAction.damage);
+							battleStateHandler.battleTextField.text = string.Format("JULIANA hurt herself in her confusion! Self inflicted {0} Hit Points!", playerAction.damage);
 						}
 						playerAction.Apply(battleStateHandler.player);
                     }
