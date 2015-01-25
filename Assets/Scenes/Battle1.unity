@@ -1495,7 +1495,8 @@ MonoBehaviour:
   timerAnimator: {fileID: 1600107558}
   timerDisplay: {fileID: 1600107560}
   battleTextField: {fileID: 451521464}
-  font: {fileID: 0}
+  winScreen: {fileID: 11413742, guid: 4e62ac05e046441128cf8c11e4b66112, type: 2}
+  gameOverScreen: {fileID: 11444142, guid: 60351bc1d2d31466cab605092cf66aa1, type: 2}
   enemy: {fileID: 717205937}
   ServerCountdownTime: 0
   highestVotedAction: 0
