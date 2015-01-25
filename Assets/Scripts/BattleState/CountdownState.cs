@@ -9,7 +9,7 @@ namespace BattleScenario {
         const float syncIntervalSeconds = 1f;
         float nextSync;
 
-        Coroutine currentFade;
+        bool firstUpdate;
 
         public CountdownState(BattleStateHandler battleStateHandler)
         {
@@ -18,26 +18,13 @@ namespace BattleScenario {
             nextSync = Time.time + syncIntervalSeconds;
             battleStateHandler.SyncCountdownTime();
 
-            //if (currentFade != null)
-            //    battleStateHandler.StopCoroutine(currentFade);
-            //currentFade = battleStateHandler.StartCoroutine(FadeAlpha(battleStateHandler.timerCanvas, 1, 0.5f));
-
-            //battleStateHandler.StartCoroutine(Fill(battleStateHandler.timerLabel, 1, 0.5f));
-
-            battleStateHandler.timerAnimator.Play("TimerIn");
-
+            firstUpdate = true;
         }
 
         public IBattleState UpdateState(BattleStateHandler battleStateHandler)
 		{
 			if (battleStateHandler.ServerCountdownTime <= 0) {
                 Debug.Log("Countdown done");
-
-                //if (currentFade != null)
-                //    battleStateHandler.StopCoroutine(currentFade);
-                //currentFade = battleStateHandler.StartCoroutine(FadeAlpha(battleStateHandler.timerCanvas, 0, 0.12f));
-
-                //battleStateHandler.StartCoroutine(Fill(battleStateHandler.timerLabel, 0, 0.09f));
 
                 battleStateHandler.timerAnimator.Play("TimerOut");
 
@@ -53,6 +40,11 @@ namespace BattleScenario {
                     nextSync = Time.time + syncIntervalSeconds;
                     battleStateHandler.SyncCountdownTime();
                 }
+            }
+
+            if (firstUpdate) {
+                firstUpdate = false;
+                battleStateHandler.timerAnimator.Play("TimerIn");
             }
 
             battleStateHandler.ServerCountdownTime -= Time.deltaTime;

@@ -78,7 +78,6 @@ public class BattleStateHandler : MonoBehaviour {
 
     void Start()
     {
-        timerAnimator.Play("TimerOut");
     }
 
 	void Update () {
