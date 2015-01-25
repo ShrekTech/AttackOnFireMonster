@@ -15,10 +15,18 @@ namespace BattleScenario
 				return new EndGameState(true);
 			}
 
+			if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
+				battleStateHandler.battleTextField.text = "The Fire Monster is Paralysed!!";
+				if (actionTime <= 0) {
+					return new CountdownState(battleStateHandler);
+				}
+				return this;
+			}
+
 			bool animationDone = shotFired && this.fireBall == null;
 
 			if (animationDone || actionTime <= 0) {
-				BattleAction enemyAction = new BattleAction(15);
+				BattleAction enemyAction = new BattleAction(10);
 				enemyAction.Apply(battleStateHandler.player);
 				battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage", enemyAction.damage);
 				return new CountdownState(battleStateHandler);
@@ -43,7 +51,7 @@ namespace BattleScenario
 				return;
 			}
 
-			if (!shotFired) {
+			if (!shotFired && battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING) {
 				this.fireBall = MonoBehaviour.Instantiate (battleStateHandler.enemyFireballPrefab) as Image;
 				this.fireBall.transform.SetParent (battleStateHandler.canvas.transform, false);
 				shotFired = true;

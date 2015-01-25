@@ -31,8 +31,29 @@ namespace BattleScenario {
                     }
                     else if (playerAction.GetTarget() == BattleAction.Target.Enemy) {
 						if (playerAction.type != BattleAction.DamageType.Failure) {
+
 							playerAction.Apply(battleStateHandler.enemy);
-							battleStateHandler.battleTextField.text = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
+
+							string messageText = string.Format("{0} takes {1} {2} damage!", battleStateHandler.enemy.name, playerAction.damage, playerAction.type);
+
+							if((playerAction.type == BattleAction.DamageType.Fire) && (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING)) {
+
+								if(battleStateHandler.numberOfFireBallsHitBy < 1 ) {
+									messageText += " .  The Fire Monster becomes uncomfortably hot!";
+									++ battleStateHandler.numberOfFireBallsHitBy;
+								} else {
+									messageText += " .  The Fire Monster is too much on fire!!  She/he is now paralysed!!";
+									battleStateHandler.numberOfFireBallsHitBy = 0;
+									battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.PARALYSED;
+								}
+							} else if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
+								messageText += " .  The Fire Monster is no long Paralysed!!";
+								battleStateHandler.numberOfFireBallsHitBy = 0;
+								battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.ATTACKING;
+							}
+
+							battleStateHandler.battleTextField.text = messageText;
+						
 						}
 						else {
 							battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", "JULIANA", "DEMOCRACY", playerAction.type);
@@ -67,21 +88,21 @@ namespace BattleScenario {
 					switch ((BattleStateHandler.PlayerAction)battleStateHandler.highestVotedAction) {
 					case BattleStateHandler.PlayerAction.FIREBALL:
 							{
-								playerAction = new BattleAction (10, BattleAction.DamageType.Fire);
+								playerAction = new BattleAction (0, BattleAction.DamageType.Fire);
 								attackBallImage = Object.Instantiate (battleStateHandler.fireballPrefab, new Vector2 (), Quaternion.identity) as Image;
 								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 								break;
 							}
 					case BattleStateHandler.PlayerAction.COLDBALL:
 							{
-								playerAction = new BattleAction (10, BattleAction.DamageType.Cold);
+								playerAction = new BattleAction (12, BattleAction.DamageType.Cold);
 								attackBallImage = Object.Instantiate (battleStateHandler.coldballPrefab, new Vector2 (), Quaternion.identity) as Image;
 								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 								break;
 							}
 					case BattleStateHandler.PlayerAction.DEFEND:
 							{
-								playerAction = new BattleAction (-10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+								playerAction = new BattleAction (-11, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
 								attackBallImage = Object.Instantiate (battleStateHandler.healBallPrefab, new Vector2 (), Quaternion.identity) as Image;
 								attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 								break;
@@ -93,7 +114,7 @@ namespace BattleScenario {
 					battleStateHandler.highestVotedAction = 0;
 					actionPerformed = true;
 			} else {
-				playerAction = new BattleAction (10, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
+				playerAction = new BattleAction (5, BattleAction.DamageType.RegularType, BattleAction.Target.Self);
 				attackBallImage = Object.Instantiate (battleStateHandler.selfHitBallPrefab, new Vector2 (), Quaternion.identity) as Image;
 				attackBallImage.transform.SetParent (battleStateHandler.canvas.transform, false);
 				actionPerformed = true;
