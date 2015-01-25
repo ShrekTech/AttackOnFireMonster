@@ -16,14 +16,6 @@ namespace BattleScenario
 				return new EndGameState(true);
 			}
 
-			if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
-				battleStateHandler.battleTextField.text = "The Fire Monster is paralysed!!";
-				if (actionTime <= 0) {
-					return new CountdownState(battleStateHandler);
-				}
-				return this;
-			}
-
 			bool animationDone = shotFired && this.fireBall == null;
 
 			if (animationDone || actionTime <= 0) {
@@ -43,6 +35,11 @@ namespace BattleScenario
             }
 
 			actionTime -= Time.deltaTime;
+
+            if (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.PARALYSED) {
+                battleStateHandler.battleTextField.text = "The Fire Monster is paralysed!!";
+                return;
+            }
 
 			if (battleStateHandler.enemy.IsDead()) {
 				Color enemyColor = battleStateHandler.enemy.enemyImage.color;
