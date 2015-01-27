@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour, IBattleActionable {
 	
+	public string name = "JULIANA";
 	public int maxHitPoints;
 	public int currentHitPoints;
 

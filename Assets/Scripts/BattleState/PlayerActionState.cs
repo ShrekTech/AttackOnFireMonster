@@ -25,7 +25,7 @@ namespace BattleScenario {
 						if(playerAction.damage < 0) {
 							battleStateHandler.battleTextField.text = string.Format("HEAL {0} Hit Points!", -playerAction.damage);
 						} else {
-							battleStateHandler.battleTextField.text = string.Format("JULIANA hurt herself in her confusion! Self inflicted {0} Hit Points!", playerAction.damage);
+							battleStateHandler.battleTextField.text = string.Format("{0} hurt herself in her confusion! Self inflicted {1} Hit Points!", battleStateHandler.player.name, playerAction.damage);
 						}
 						playerAction.Apply(battleStateHandler.player);
                     }
@@ -39,10 +39,10 @@ namespace BattleScenario {
 							if((playerAction.type == BattleAction.DamageType.Fire) && (battleStateHandler.currentFireMonsterState == BattleStateHandler.FireMonsterState.ATTACKING)) {
 
 								if(battleStateHandler.numberOfFireBallsHitBy < 1 ) {
-									messageText += "!  Fire Monster is uncomfortably hot!";
+									messageText += string.Format("!  {0} is uncomfortably hot!", battleStateHandler.enemy.name);
 									++ battleStateHandler.numberOfFireBallsHitBy;
 								} else {
-									messageText += "!  The Fire Monster is paralysed!!";
+									messageText += string.Format("!  {0} is paralysed!!", battleStateHandler.enemy.name);
 									battleStateHandler.numberOfFireBallsHitBy = 0;
 									battleStateHandler.currentFireMonsterState = BattleStateHandler.FireMonsterState.PARALYSED;
 								}
@@ -56,7 +56,7 @@ namespace BattleScenario {
 						
 						}
 						else {
-							battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", "JULIANA", "DEMOCRACY", playerAction.type);
+							battleStateHandler.battleTextField.text = string.Format("{0} tried to {1} but it failed!", battleStateHandler.player.name, "DEMOCRACY", playerAction.type);
 						}
                     }
                 }

@@ -24,7 +24,7 @@ namespace BattleScenario
 			if (animationDone || actionTime <= 0) {
                 if (enemyAction != null) {
                     enemyAction.Apply(battleStateHandler.player);
-                    battleStateHandler.battleTextField.text = string.Format("JULIANA takes {0} damage!", enemyAction.damage);
+                    battleStateHandler.battleTextField.text = string.Format("{0} takes {1} damage!", battleStateHandler.player.name, enemyAction.damage);
                 }
 				return new CountdownState(battleStateHandler);
 			}
